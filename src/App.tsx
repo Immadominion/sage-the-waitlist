@@ -112,12 +112,14 @@ function GradientOrbs() {
 }
 
 /* ─────────────────────────────────────────────
-   Waitlist email form
+   Waitlist email form (click-to-expand)
    ───────────────────────────────────────────── */
-function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'hero' | 'cta' }) {
+function WaitlistForm({ label, className = '' }: { label: string; className?: string }) {
+    const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -145,31 +147,61 @@ function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'hero' | 
         }
     };
 
+    // Success state
     if (status === 'success') {
         return (
             <motion.div
-                className={`waitlist-success ${variant}`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+                className={`waitlist-success ${className}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-                <CheckCircle size={20} />
+                <CheckCircle size={18} />
                 <span>{message}</span>
             </motion.div>
         );
     }
 
+    // Collapsed: show original button
+    if (!open) {
+        return (
+            <motion.button
+                className={`btn btn-primary btn-glow ${className}`}
+                onClick={() => {
+                    setOpen(true);
+                    setTimeout(() => inputRef.current?.focus(), 350);
+                }}
+                layoutId={`waitlist-${label}`}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+                {label} <ArrowRight size={16} />
+            </motion.button>
+        );
+    }
+
+    // Expanded: show email form
     return (
-        <form className={`waitlist-form ${variant}`} onSubmit={handleSubmit}>
+        <motion.form
+            className={`waitlist-form ${className}`}
+            onSubmit={handleSubmit}
+            layoutId={`waitlist-${label}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        >
             <div className="waitlist-input-wrap">
                 <Mail size={16} className="waitlist-icon" />
                 <input
+                    ref={inputRef}
                     type="email"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => {
                         setEmail(e.target.value);
                         if (status === 'error') setStatus('idle');
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Escape') { setOpen(false); setEmail(''); setStatus('idle'); }
                     }}
                     required
                     className="waitlist-input"
@@ -182,7 +214,7 @@ function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'hero' | 
                     {status === 'loading' ? (
                         <Loader2 size={16} className="spin" />
                     ) : (
-                        <>{variant === 'cta' ? 'Join waitlist' : 'Get early access'} <ArrowRight size={14} /></>
+                        <>Go <ArrowRight size={14} /></>
                     )}
                 </button>
             </div>
@@ -195,8 +227,7 @@ function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'hero' | 
                     {message}
                 </motion.p>
             )}
-            <p className="waitlist-note">No spam. Only product updates.</p>
-        </form>
+        </motion.form>
     );
 }
 
@@ -412,7 +443,7 @@ export default function App() {
                         <button className="theme-btn" onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}>
                             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
-                        <a href="#cta" className="btn btn-primary btn-sm">Join waitlist</a>
+                        <a href="#cta" className="btn btn-primary btn-sm">Get early access</a>
                     </div>
                 </div>
             </header>
@@ -453,7 +484,10 @@ export default function App() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <WaitlistForm variant="hero" />
+                                <WaitlistForm label="Start trading smarter" />
+                                <a href="#story" className="btn btn-outline">
+                                    See how it works
+                                </a>
                             </motion.div>
                         </motion.div>
                         <motion.div
@@ -802,13 +836,12 @@ export default function App() {
                                 <div className="cta-glow" />
                                 <h2>Ready to let AI trade for you?</h2>
                                 <p>
-                                    Join the waitlist and be among the first to deploy
+                                    Join the early access and be among the first to deploy
                                     an AI trading agent on Solana.
                                 </p>
                                 <div className="cta-actions">
-                                    <WaitlistForm variant="cta" />
+                                    <WaitlistForm label="Request early access" className="btn-lg" />
                                 </div>
-                                <p className="cta-count mt-2">Join 0+ traders on the waitlist</p>
                             </div>
                         </Reveal>
                     </div>
