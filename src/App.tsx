@@ -99,6 +99,37 @@ function Counter({ value, suffix = '', prefix = '' }: { value: number; suffix?: 
 }
 
 /* ─────────────────────────────────────────────
+   Premium Glass Sphere (decorative)
+   ───────────────────────────────────────────── */
+function MockGlassSphere({ size = 48, className = '' }: { size?: number, className?: string }) {
+    return (
+        <svg 
+            width={size} 
+            height={size} 
+            viewBox="0 0 100 100" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            className={className}
+        >
+            <circle cx="50" cy="50" r="48" fill="url(#glass-gradient)" fillOpacity="0.4" stroke="url(#glass-border)" strokeWidth="1.5" />
+            <ellipse cx="40" cy="30" rx="15" ry="10" transform="rotate(-30 40 30)" fill="white" fillOpacity="0.8" filter="blur(4px)" />
+            <path d="M 20 50 A 30 30 0 0 0 80 50" stroke="white" strokeWidth="2" strokeOpacity="0.3" fill="none" filter="blur(2px)" />
+            <defs>
+                <linearGradient id="glass-gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.8" />
+                    <stop offset="0.5" stopColor="var(--accent)" stopOpacity="0.2" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.1" />
+                </linearGradient>
+                <linearGradient id="glass-border" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="white" stopOpacity="0.8" />
+                    <stop offset="1" stopColor="white" stopOpacity="0.2" />
+                </linearGradient>
+            </defs>
+        </svg>
+    )
+}
+
+/* ─────────────────────────────────────────────
    Floating gradient orbs (background decoration)
    ───────────────────────────────────────────── */
 function GradientOrbs() {
@@ -453,7 +484,24 @@ export default function App() {
                     SECTION 1 — HERO
                     ═══════════════════════════════════════ */}
                 <section className="hero" ref={heroRef}>
+                    <div className="hero-bg-grid" />
                     <GradientOrbs />
+                    <motion.div 
+                        className="floating-orb"
+                        animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, 0] }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                        style={{ position: 'absolute', top: '20%', left: '15%', zIndex: 0, filter: 'blur(4px)', opacity: 0.8 }}
+                    >
+                        <MockGlassSphere size={48} />
+                    </motion.div>
+                    <motion.div 
+                        className="floating-orb"
+                        animate={{ y: [0, 20, 0], x: [0, -15, 0], rotate: [0, -10, 0] }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                        style={{ position: 'absolute', bottom: '25%', right: '10%', zIndex: 0, filter: 'blur(6px)', opacity: 0.6 }}
+                    >
+                         <MockGlassSphere size={64} />
+                    </motion.div>
                     <div className="container hero-layout">
                         <motion.div
                             className="hero-text"
@@ -497,8 +545,16 @@ export default function App() {
                             <motion.div
                                 className="phone phone-hero"
                                 initial={{ opacity: 0, y: 60, rotateY: -8 }}
-                                animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                                transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    y: [0, -15, 0], 
+                                    rotateY: 0 
+                                }}
+                                transition={{ 
+                                    opacity: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
+                                    y: { duration: 6, ease: "easeInOut", repeat: Infinity },
+                                    rotateY: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }
+                                }}
                             >
                                 <AnimatePresence mode="wait">
                                     <motion.div
