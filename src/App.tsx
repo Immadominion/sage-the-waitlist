@@ -34,7 +34,10 @@ import {
     Mail,
     CheckCircle,
     Loader2,
+    Download,
 } from 'lucide-react';
+
+const APK_DOWNLOAD_URL = 'https://github.com/Immadominion/sage/releases/download/v1.0.2/app-release.apk';
 
 /* ─────────────────────────────────────────────
    Scroll-triggered fade-in with slide direction
@@ -474,6 +477,9 @@ export default function App() {
                         <button className="theme-btn" onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}>
                             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
+                        <a href={APK_DOWNLOAD_URL} className="btn btn-outline btn-sm" download>
+                            <Download size={14} /> Download APK
+                        </a>
                         <a href="#cta" className="btn btn-primary btn-sm">Get early access</a>
                     </div>
                 </div>
@@ -533,8 +539,8 @@ export default function App() {
                                 transition={{ delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                             >
                                 <WaitlistForm label="Start trading smarter" />
-                                <a href="#story" className="btn btn-outline">
-                                    See how it works
+                                <a href={APK_DOWNLOAD_URL} className="btn btn-outline" download>
+                                    <Download size={16} /> Download for Android
                                 </a>
                             </motion.div>
                         </motion.div>

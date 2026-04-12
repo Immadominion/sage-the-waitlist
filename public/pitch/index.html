@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sage — Pitch Deck</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --lime: #c3ff00;
+            --blue: #0055ff;
+            --bg: #09090b;
+            --card: #131316;
+            --white: #ffffff;
+            --dim: #777;
+            --muted: #444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #000;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--white);
+            background: #000;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        /* ── Slide ── */
+        .slide {
+            width: 100%;
+            height: auto;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+            page-break-after: always;
+            margin: 0 auto 2px;
+            aspect-ratio: 16 / 9;
+        }
+
+        .slide:last-child {
+            page-break-after: auto;
+        }
+
+        .slide.center {
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ── Type ── */
+        .hero {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 52px;
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+            color: var(--white);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 38px;
+            line-height: 1.12;
+            letter-spacing: -0.8px;
+            color: var(--white);
+            margin-bottom: 18px;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.55;
+            color: var(--dim);
+        }
+
+        .big {
+            font-size: 19px;
+        }
+
+        .small {
+            font-size: 14px;
+        }
+
+        .lime {
+            color: var(--lime);
+        }
+
+        .blue {
+            color: var(--blue);
+        }
+
+        .w {
+            color: var(--white);
+        }
+
+        .dim {
+            color: var(--dim);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        /* ── Layout ── */
+        .row {
+            display: flex;
+            gap: 36px;
+            width: 100%;
+        }
+
+        .row>* {
+            flex: 1;
+        }
+
+        .gap-24 {
+            gap: 24px;
+        }
+
+        .gap-16 {
+            gap: 16px;
+        }
+
+        .mt-auto {
+            margin-top: auto;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .card-lime {
+            border-left: 3px solid var(--lime);
+        }
+
+        .card-blue {
+            border-left: 3px solid var(--blue);
+        }
+
+        /* ── Steps ── */
+        .step-grid {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .step {
+            flex: 1;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .step-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 48px;
+            color: var(--muted);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 15px;
+        }
+
+        /* ── Video ── */
+        .video-wrap {
+            width: 100%;
+            max-height: 520px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-wrap video {
+            width: 100%;
+            height: auto;
+            max-height: 520px;
+            object-fit: contain;
+            background: #000;
+        }
+
+
+
+        /* ── Proof images ── */
+        .proof-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 20px;
+        }
+
+        .proof-row img {
+            width: 280px;
+            border-radius: 10px;
+            border: 2px solid #1a1a1a;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .proof-row img:nth-child(2) {
+            width: 300px;
+            border-color: var(--lime);
+            transform: translateY(-10px);
+        }
+
+        /* ── Stat row ── */
+        .stat-row {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            flex: 1;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px 24px;
+            border-top: 2px solid var(--muted);
+        }
+
+        .stat-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--lime);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--dim);
+            margin-top: 6px;
+        }
+
+        /* ── Seal checks ── */
+        .check-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 16px;
+        }
+
+        .check-list li {
+            font-size: 17px;
+            color: var(--white);
+            padding: 10px 0;
+            border-bottom: 1px solid #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .check-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-icon svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* ── Revenue ── */
+        .rev-box {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 32px 40px;
+            margin-top: 24px;
+            border: 1px solid #1a1a1a;
+            max-width: 700px;
+        }
+
+        .rev-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .rev-row:last-child {
+            border-bottom: none;
+        }
+
+        /* ── Timeline ── */
+        .timeline {
+            display: flex;
+            gap: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .quarter {
+            flex: 1;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .quarter h4 {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .quarter ul {
+            padding-left: 16px;
+            list-style: disc;
+        }
+
+        .quarter li {
+            font-size: 14px;
+            color: var(--dim);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .quarter.now {
+            border: 1px solid var(--lime);
+        }
+
+        /* ── Bottom tag ── */
+        .slide-tag {
+            position: absolute;
+            bottom: 24px;
+            left: 80px;
+            font-size: 11px;
+            color: var(--muted);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ── Print ── */
+        @page {
+            size: 16in 9in;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                background: #000 !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .slide {
+                width: 16in;
+                height: 9in;
+                aspect-ratio: unset;
+                margin: 0;
+                padding: 60px 80px;
+                box-shadow: none;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        @media screen {
+            body {
+                padding: 20px 0;
+            }
+
+            .slide {
+                box-shadow: 0 4px 60px rgba(0, 0, 0, 0.7);
+                margin-bottom: 28px;
+                border-radius: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 1 — HOOK
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide center">
+        <p class="small muted" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px;">Solana
+            Mobile &middot; MONOLITH 2026</p>
+        <div class="hero" style="max-width: 960px;">
+            $2K / month.<br>
+            77% win rate.<br>
+            <span class="lime">Zero employees.</span>
+        </div>
+        <p class="big" style="margin-top: 28px; color: #999; max-width: 640px;">
+            This is one Solana wallet running an LP bot on Meteora.<br>
+            <strong class="w">Your phone can do this now.</strong>
+        </p>
+        <span class="slide-tag">sage.scrolls.fun</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 2 — THE GAP
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide">
+        <h2>You're not slow.<br><span class="blue">You're locked out.</span></h2>
+        <div class="row" style="margin-top: 8px;">
+            <div>
+                <p class="big w">Automated trading has always existed. It's just never been yours.</p>
+                <p style="margin-top: 14px;">Hedge funds have quant teams. Prop desks run bots 24/7. On Meteora, a
+                    handful of wallets run automated LP scanners — entering positions every 30 seconds, exiting on
+                    target. One solo dev's bot hit a 77% win rate across 12,635 positions. Investors tried to buy his
+                    code. He said no.</p>
+                <p style="margin-top: 14px;">Every time a closed system goes public, a market explodes. Uber did it to
+                    taxis. Robinhood did it to stock trading. Pump.fun did it to token launches. The pattern is always
+                    the same: <strong class="w">take what the insiders gatekept and put it in everyone's
+                        pocket.</strong></p>
+                <p
+                    style="margin-top: 18px; font-weight: 600; color: var(--lime); border-left: 2px solid var(--lime); padding-left: 14px;">
+                    Automated LP trading on Solana is that closed system right now.
+                </p>
+            </div>
+            <div style="flex: 0.7; display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+                <div class="card card-lime" style="padding: 20px;">
+                    <p class="small lime" style="text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">
+                        Automated wallet</p>
+                    <p class="w" style="margin-top: 8px;">Scans 200+ pools every 30s. Enters on signal. Exits on target.
+                        Runs 24/7.</p>
+                </div>
+                <div class="card" style="padding: 20px; border-left: 3px solid var(--muted);">
+                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">
+                        Manual trader</p>
+                    <p style="margin-top: 8px; color: #555;">Opens app. Reads chart. Thinks about it. Pool cools off.
+                        Repeat.</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-tag">the problem</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 3 — SAGE (VALUE PROP)
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide center">
+        <p class="small dim" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Introducing
+        </p>
+        <div class="hero" style="max-width: 900px; font-size: 54px;">
+            Talk to your phone.<br>
+            <span class="lime">It trades for you.</span>
+        </div>
+        <p class="big" style="margin-top: 28px; color: #888; max-width: 680px;">
+            Sage is an autonomous LP trading agent for Solana.<br>
+            Describe a strategy in English. An ML-powered bot executes it from your pocket.
+        </p>
+        <span class="slide-tag">sage</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 4 — HOW IT WORKS (3 STEPS)
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide">
+        <h2>Three taps. Not three weeks.</h2>
+        <div class="step-grid" style="margin-top: 12px;">
+            <div class="step">
+                <div class="step-num muted">1</div>
+                <h4 class="w">Connect</h4>
+                <p>Sign in with your Solana wallet via MWA. Phantom, Solflare — no email, no password. Your wallet is
+                    your identity.</p>
+            </div>
+            <div class="step" style="border-top: 2px solid var(--blue);">
+                <div class="step-num" style="color: var(--blue);">2</div>
+                <h4 class="lime">Configure</h4>
+                <p>Choose a risk profile (conservative, balanced, aggressive) or speak your strategy out loud — Sage
+                    transcribes it and Claude converts it to exact parameters. An XGBoost V3 model trained on a dataset
+                    of Meteora positions scores every pool in real time using 12 features: volume, fees, liquidity, APR,
+                    momentum.</p>
+            </div>
+            <div class="step" style="border-top: 2px solid var(--lime);">
+                <div class="step-num" style="color: var(--lime);">3</div>
+                <h4 class="w">Deploy</h4>
+                <p>Your bot goes live — scanning 200+ pools every 30 seconds. The ML model filters entries by confidence
+                    score. Positions are opened, tracked, and closed automatically. Watch it all from your phone.</p>
+            </div>
+        </div>
+        <p
+            style="margin-top: 24px; font-size: 14px; color: var(--muted); border-left: 2px solid var(--lime); padding-left: 14px;">
+            <em class="dim">Test any strategy in simulation mode first. Real Meteora data. No real money at risk.</em>
+        </p>
+        <span class="slide-tag">how it works</span>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 5 — SEAL (MOAT / BOUNTY ANSWER)
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide">
+        <p class="small lime" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;">Agentic Wallet
+            Infrastructure</p>
+        <h2>Your bot has a leash.<br><span class="blue">The blockchain holds it.</span></h2>
+        <div class="row" style="margin-top: 8px;">
+            <div>
+                <p>Every trade flows through <strong class="w">Seal</strong> — a smart wallet infrastructure program we
+                    built on
+                    Solana. Pure Pinocchio.</p>
+                <p style="margin-top: 12px;">The agent gets scoped session keys enforced on-chain:</p>
+                <ul class="check-list">
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" stroke="#09090b" stroke-width="2" fill="none" />
+                            </svg></span>
+                        <span><strong>Program allowlists</strong> <span class="dim">— only Meteora DLMM, nothing
+                                else</span></span>
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" stroke="#09090b" stroke-width="2" fill="none" />
+                            </svg></span>
+                        <span><strong>Spending caps</strong> <span class="dim">— per-transaction and daily
+                                limits</span></span>
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" stroke="#09090b" stroke-width="2" fill="none" />
+                            </svg></span>
+                        <span><strong>Auto-expiring sessions</strong> <span class="dim">— time-bounded, revocable
+                                instantly</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card card-blue" style="display: flex; flex-direction: column; justify-content: center;">
+                <p class="big w" style="font-weight: 600;">"If our server gets compromised, the attacker hits a spending
+                    cap.</p>
+                <p class="big lime" style="margin-top: 8px; font-weight: 700;">Not your savings."</p>
+                <p style="margin-top: 20px; color: var(--muted); font-size: 14px;">Open source. Mainnet deployed.<br>No
+                    admin key. No server custody.</p>
+                <p style="margin-top: 12px;"><strong class="blue">seal.scrolls.fun</strong></p>
+            </div>
+        </div>
+        <span class="slide-tag">what makes us different</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 7 — TRACTION + SOCIAL PROOF
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide">
+        <h2>The market already told us<br><span class="lime">this should exist.</span></h2>
+        <div class="row" style="margin-top: 8px;">
+            <div style="flex: 1.1;">
+                <p class="big w">We didn't guess the demand. We found it.</p>
+                <p style="margin-top: 14px;">Mr Banks asked who's building AI that autonomously trades and places bets —
+                    pulling in $1K+ daily on autopilot. Vibhu (mid tier manager @solana) saw a YC-backed autonomous
+                    wealth product and said: <em class="lime">"This is not on Solana but should be."</em> And the bot
+                    devs who already have this? <em class="w">"No sane person will share it."</em></p>
+                <p style="margin-top: 14px;">Sage is the answer to all three. An autonomous LP agent that runs from your
+                    phone — built on Solana, open to everyone.</p>
+                <div class="stat-row" style="margin-top: 16px;">
+                    <div class="stat" style="border-color: var(--lime);">
+                        <div class="stat-val">Mainnet</div>
+                        <div class="stat-label">Seal wallet deployed</div>
+                    </div>
+                    <div class="stat" style="border-color: var(--blue);">
+                        <div class="stat-val">XGBoost V3</div>
+                        <div class="stat-label">ML model &middot; 0.94 AUC &middot; &lt;1ms</div>
+                    </div>
+                    <div class="stat" style="border-color: var(--lime);">
+                        <div class="stat-val">Full App</div>
+                        <div class="stat-label">Auth, voice AI, bots, live tracking</div>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 0.55;">
+                <div class="proof-row" style="flex-direction: column; align-items: center; margin-top: 0; gap: 12px;">
+                    <img src="proofs/vibhu.png" alt="Vibhu: This is not on Solana but should be"
+                        style="width: 100%; border-radius: 10px; border: 2px solid var(--lime); box-shadow: 0 12px 40px rgba(0,0,0,0.6);">
+                    <img src="proofs/mr-banks.png" alt="Mr Banks: Who is building AI that autonomously trades"
+                        style="width: 100%; border-radius: 10px; border: 2px solid #1a1a1a; box-shadow: 0 12px 40px rgba(0,0,0,0.6);">
+                </div>
+            </div>
+        </div>
+        <span class="slide-tag">market signal</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 8 — SUSTAINABILITY / REVENUE
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide center">
+        <h2>Bot doesn't profit?<br><span class="lime">You don't pay.</span></h2>
+        <div class="rev-box" style="text-align: left;">
+            <div class="rev-row">
+                <div>
+                    <p class="w" style="font-weight: 600;">Performance fee</p>
+                    <p class="small dim">10–15% of AI-generated profits only</p>
+                </div>
+                <p class="lime" style="font-weight: 700; font-size: 20px;">Core</p>
+            </div>
+            <div class="rev-row">
+                <div>
+                    <p class="w" style="font-weight: 600;">Pro automation tier</p>
+                    <p class="small dim">Unlimited strategies, premium ML access</p>
+                </div>
+                <p class="blue" style="font-weight: 700; font-size: 20px;">$9.99/mo</p>
+            </div>
+            <div class="rev-row">
+                <div>
+                    <p class="w" style="font-weight: 600;">Execution fee</p>
+                    <p class="small dim">0.1–0.3% integrator fee on Jupiter swaps</p>
+                </div>
+                <p class="dim" style="font-weight: 700; font-size: 20px;">Volume</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 14px; color: var(--muted);">Break-even at ~50 active users on performance
+            tier. Non-custodial = no custody = reduced regulatory burden.</p>
+        <span class="slide-tag">sustainability</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 9 — TEAM
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide">
+        <p class="small lime" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px;">Solo-built in
+            five weeks</p>
+        <h2 style="font-size: 40px; margin-bottom: 4px;">Dominion Nwakanma <span class="dim"
+                style="font-size: 22px; font-weight: 500;">— Miester</span></h2>
+        <p class="small dim" style="margin-bottom: 14px;">#29 / 1,088 developers on Superteam Earn &middot; Top 2%
+            &middot; ~$15K earned</p>
+        <div class="row gap-24">
+            <!-- Left col: proof cards -->
+            <div style="display: flex; flex-direction: column; gap: 12px; flex: 1.1;">
+                <div class="card card-lime" style="padding: 18px 22px;">
+                    <p class="small lime"
+                        style="text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 6px;">
+                        Why this problem, why him</p>
+                    <p class="w" style="font-size: 15px; line-height: 1.5;">Built <strong>coral_xyz</strong> — the
+                        first Anchor client library for Flutter/Dart. Featured on Colosseum Codex. When no path existed
+                        for Flutter developers to interact with Solana programs, he created it from scratch.</p>
+                </div>
+                <div class="card" style="padding: 18px 22px; border-left: 3px solid var(--blue);">
+                    <p class="small"
+                        style="color: var(--blue); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 6px;">
+                        3 published apps on the dApp Store</p>
+                    <p style="font-size: 14px; color: #888;">Since the last Solana Mobile hackathon, he has published
+                        three apps on the Solana dApp Store: a Blueshift mobile course app, a Sign In With Solana
+                        reference app, and Sage itself. </br></br>
+
+                        Worked with Blueshift to curate a web3 mobile developers course for solana mobile developers.
+                    </p>
+                </div>
+                <div class="card" style="padding: 18px 22px;">
+                    <p class="small muted"
+                        style="text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 6px;">
+                        5,000+ developers educated</p>
+                    <p style="font-size: 14px; color: #888;">Ran a 3-part Flutter &times; Solana workshop series on a
+                        Superteam grant. Spoke to 800 developers at FlutterBytes '25. Published 15+ technical tutorials
+                        on Medium. </br></br>All and more for Solana mobile 🫶.
+                    </p>
+                </div>
+            </div>
+            <!-- Right col: stat tiles -->
+            <div style="flex: 0.9; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                <div class="card" style="padding: 14px 18px;">
+                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                        Stack shipped</p>
+                    <p class="w" style="font-weight: 600; font-size: 14px;">Dart &middot; TypeScript &middot; Rust
+                        &middot; Python</p>
+                </div>
+                <div class="card" style="padding: 14px 18px;">
+                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                        Systems built solo</p>
+                    <p class="w" style="font-weight: 600; font-size: 14px;">Mobile &middot; Backend &middot; On-chain
+                        &middot; ML &middot; Infra</p>
+                </div>
+                <div class="card" style="padding: 14px 18px;">
+                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                        OSS first-mover</p>
+                    <p class="w" style="font-weight: 600; font-size: 14px;">Anchor/Dart &middot; Jupiter/Dart &middot;
+                        Walrus/Dart &middot; Seal (Pinocchio)</p>
+                </div>
+                <div class="card" style="padding: 14px 18px;">
+                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                        Community</p>
+                    <p class="w" style="font-weight: 600; font-size: 14px;">Solana AllStars Ambassador &middot; GDSC
+                        Mobile Lead</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-tag">team</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+       SLIDE 10 — CTA / CLOSER
+       ═══════════════════════════════════════════════════════ -->
+    <div class="slide center">
+        <p class="dim big" style="max-width: 600px; margin-bottom: 32px;">
+            The best traders never stopped automating.<br>
+            Now you don't have to start from scratch.
+        </p>
+        <div class="hero lime" style="font-size: 56px;">sage.scrolls.fun</div>
+        <p style="margin-top: 16px; font-size: 17px;">
+            Wallet infra: <strong class="blue">seal.scrolls.fun</strong>
+        </p>
+        <p style="margin-top: 6px; font-size: 15px; color: var(--muted);">
+            Open source: github.com/immadominion/seal
+        </p>
+
+
+    </div>
+
+</body>
+
+</html>
