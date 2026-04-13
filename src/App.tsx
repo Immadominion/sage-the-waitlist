@@ -15,7 +15,6 @@ import {
     Moon,
     Sun,
     Shield,
-    Clock,
     Eye,
     Zap,
     TrendingUp,
@@ -30,11 +29,14 @@ import {
     ArrowLeft,
     MoreVertical,
     SlidersHorizontal,
-    ExternalLink,
     Mail,
     CheckCircle,
     Loader2,
     Download,
+    Menu,
+    X,
+    Lock,
+    Wallet,
 } from 'lucide-react';
 
 const APK_DOWNLOAD_URL = 'https://github.com/Immadominion/sage/releases/download/v1.0.2/app-release.apk';
@@ -436,6 +438,7 @@ function MonitorScreen() {
 export default function App() {
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [heroPhone, setHeroPhone] = useState<'automate' | 'monitor'>('automate');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     // Parallax refs
     const heroRef = useRef(null);
@@ -465,7 +468,7 @@ export default function App() {
             <header className="nav">
                 <div className="nav-inner container">
                     <a href="#" className="logo">
-                        <img src="/logo.png" alt="Sage" className="logo-img" />
+                        <img src="/sage-logo.png" alt="Sage" className="logo-img" />
                         <span>Sage</span>
                     </a>
                     <nav className="nav-links">
@@ -477,12 +480,44 @@ export default function App() {
                         <button className="theme-btn" onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}>
                             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
-                        <a href={APK_DOWNLOAD_URL} className="btn btn-outline btn-sm" download>
-                            <Download size={14} /> Download APK
+                        <a href={APK_DOWNLOAD_URL} className="btn btn-outline btn-sm nav-download" download>
+                            <Download size={14} /> Download
                         </a>
-                        <a href="#cta" className="btn btn-primary btn-sm">Get early access</a>
+                        <a href="#cta" className="btn btn-primary btn-sm nav-cta">Get early access</a>
                     </div>
+                    <button
+                        className="mobile-menu-btn"
+                        onClick={() => setMobileMenuOpen(v => !v)}
+                        aria-label="Toggle menu"
+                    >
+                        {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+                    </button>
                 </div>
+                <AnimatePresence>
+                    {mobileMenuOpen && (
+                        <motion.div
+                            className="mobile-menu"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <nav className="mobile-menu-links">
+                                <a href="#story" onClick={() => setMobileMenuOpen(false)}>Why Sage</a>
+                                <a href="#how" onClick={() => setMobileMenuOpen(false)}>How it works</a>
+                                <a href="#security" onClick={() => setMobileMenuOpen(false)}>Security</a>
+                            </nav>
+                            <div className="mobile-menu-actions">
+                                <a href={APK_DOWNLOAD_URL} className="btn btn-outline" download>
+                                    <Download size={16} /> Download APK
+                                </a>
+                                <a href="#cta" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>
+                                    Get early access <ArrowRight size={16} />
+                                </a>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </header>
 
             <main>
@@ -654,8 +689,8 @@ export default function App() {
                             {[
                                 {
                                     num: '01',
-                                    title: 'Connect your wallet',
-                                    desc: 'Sign in with any Solana wallet. No deposits, no transfers. Your funds stay exactly where they are.',
+                                    title: 'Sign in with your wallet',
+                                    desc: 'Connect any Solana wallet to sign in. Fund your bot with exactly what you want to trade — withdraw anytime.',
                                     icon: SlidersHorizontal,
                                 },
                                 {
@@ -749,68 +784,85 @@ export default function App() {
                 </section>
 
                 {/* ═══════════════════════════════════════
-                    SECTION 7 — SECURITY (Seal screenshot)
+                    SECTION 7 — SECURITY
                     ═══════════════════════════════════════ */}
                 <section className="section section-full" id="security">
                     <div className="container split-layout">
                         <Reveal className="split-text" direction="left">
-                            <span className="eyebrow">YOUR KEYS. YOUR WALLET.</span>
-                            <h2>You never hand over your private key.</h2>
+                            <span className="eyebrow">SECURITY MODEL</span>
+                            <h2>Your rules. Enforced by code.</h2>
                             <p>
-                                Sage is built on <strong>Seal</strong> — an open-source smart wallet
-                                infrastructure that lets AI agents trade on your behalf without ever
-                                touching your private key.
+                                Every bot runs in its own isolated wallet. You fund it with
+                                exactly what you're willing to risk — and withdraw anytime.
+                                The bot can only trade within the strict parameters you set.
                             </p>
                             <p>
-                                Think of it like giving a valet your car key with a speed limit and
-                                a geo-fence — they can drive, but only within your rules.
+                                Position sizes, stop losses, profit targets, max concurrent
+                                positions — these aren't suggestions. They're hard limits the
+                                engine enforces on every single trade.
                             </p>
                             <div className="trust-list">
                                 <div className="trust-item">
-                                    <Shield size={18} />
+                                    <Wallet size={18} />
                                     <div>
-                                        <strong>Non-custodial</strong>
-                                        <span>Your crypto never leaves your wallet</span>
+                                        <strong>Isolated bot wallets</strong>
+                                        <span>Each bot has its own sandboxed wallet — your main wallet is never touched</span>
                                     </div>
                                 </div>
                                 <div className="trust-item">
-                                    <Clock size={18} />
+                                    <Lock size={18} />
                                     <div>
-                                        <strong>Time-limited sessions</strong>
-                                        <span>Bot access expires automatically</span>
+                                        <strong>Hard-coded risk limits</strong>
+                                        <span>Max loss, position size, and exposure caps enforced every cycle</span>
                                     </div>
                                 </div>
                                 <div className="trust-item">
                                     <Eye size={18} />
                                     <div>
-                                        <strong>Fully transparent</strong>
-                                        <span>Every trade is logged and inspectable</span>
+                                        <strong>Full transparency</strong>
+                                        <span>Every trade, every decision — logged and visible in real time</span>
+                                    </div>
+                                </div>
+                                <div className="trust-item">
+                                    <Shield size={18} />
+                                    <div>
+                                        <strong>Withdraw anytime</strong>
+                                        <span>Pull your funds back to any wallet instantly — zero lock-up</span>
                                     </div>
                                 </div>
                             </div>
                         </Reveal>
                         <Reveal className="split-visual" direction="right" delay={0.15}>
-                            <div className="seal-screenshot-wrapper">
-                                <div className="browser-chrome">
-                                    <div className="browser-dots">
-                                        <span /><span /><span />
+                            <div className="security-visual">
+                                <div className="security-card">
+                                    <div className="security-card-header">
+                                        <Lock size={20} />
+                                        <span>Bot Execution Limits</span>
                                     </div>
-                                    <span className="browser-url">seal.scrolls.fun</span>
+                                    <div className="security-params">
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Max Position Size</span>
+                                            <span className="security-param-val">0.5 SOL</span>
+                                        </div>
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Max Concurrent</span>
+                                            <span className="security-param-val">5</span>
+                                        </div>
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Stop Loss</span>
+                                            <span className="security-param-val loss">-10.0%</span>
+                                        </div>
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Profit Target</span>
+                                            <span className="security-param-val profit">+25.0%</span>
+                                        </div>
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Wallet Isolation</span>
+                                            <span className="security-param-val accent">Active</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <img
-                                    src="/seal-landing-page-ui.png"
-                                    alt="Seal — Autonomous wallet infrastructure for Solana"
-                                    className="seal-screenshot"
-                                />
                             </div>
-                            <a
-                                href="https://seal.scrolls.fun"
-                                className="seal-link"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                Visit Seal <ExternalLink size={14} />
-                            </a>
                         </Reveal>
                     </div>
                 </section>
@@ -871,11 +923,11 @@ export default function App() {
                                 <div className="bento-card bento-wide">
                                     <div className="bento-body">
                                         <span className="bento-tag">CONTROL</span>
-                                        <h3>Your rules, enforced on-chain</h3>
+                                        <h3>Your rules, strictly enforced</h3>
                                         <p>
                                             Set position sizes, stop losses, profit targets, and
                                             spending limits. These aren't suggestions — they're
-                                            enforced by the blockchain itself.
+                                            hard limits enforced on every single trade cycle.
                                         </p>
                                     </div>
                                     <div className="bento-metric">
@@ -914,7 +966,7 @@ export default function App() {
             <footer className="footer">
                 <div className="container footer-inner">
                     <div className="footer-brand">
-                        <img src="/logo.png" alt="Sage" className="logo-img" />
+                        <img src="/sage-logo.png" alt="Sage" className="logo-img" />
                         <span>Sage</span>
                     </div>
                     <span className="footer-note">AI-powered trading on Solana.</span>
