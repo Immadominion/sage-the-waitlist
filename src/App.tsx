@@ -41,6 +41,8 @@ import {
 
 const APK_DOWNLOAD_URL = 'https://github.com/Immadominion/sage/releases/download/v1.0.2/app-release.apk';
 
+const TAWK_TO_URL = 'https://embed.tawk.to/68c3692a2d363c192cbaaea5/1j4tl5k2i';
+
 /* ─────────────────────────────────────────────
    Scroll-triggered fade-in with slide direction
    ───────────────────────────────────────────── */
@@ -108,11 +110,11 @@ function Counter({ value, suffix = '', prefix = '' }: { value: number; suffix?: 
    ───────────────────────────────────────────── */
 function MockGlassSphere({ size = 48, className = '' }: { size?: number, className?: string }) {
     return (
-        <svg 
-            width={size} 
-            height={size} 
-            viewBox="0 0 100 100" 
-            fill="none" 
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 100 100"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={className}
         >
@@ -381,7 +383,7 @@ function MonitorScreen() {
                         <h2 className="app-title-lg">Alpha Hunter</h2>
                         <span className="app-sub text-md">live · 0.5 SOL per position</span>
                     </div>
-                    <div className="app-tag-badge">Sage AI</div>
+                    <div className="app-tag-badge">Aura AI</div>
                 </div>
                 <div className="mt-4">
                     <span className="app-label">NET P&L</span>
@@ -468,11 +470,11 @@ export default function App() {
             <header className="nav">
                 <div className="nav-inner container">
                     <a href="#" className="logo">
-                        <img src="/sage-logo.png" alt="Sage" className="logo-img" />
-                        <span>Sage</span>
+                        <img src="/sage-logo.png" alt="Aura" className="logo-img" />
+                        <span>Aura</span>
                     </a>
                     <nav className="nav-links">
-                        <a href="#story">Why Sage</a>
+                        <a href="#story">Why Aura</a>
                         <a href="#how">How it works</a>
                         <a href="#security">Security</a>
                     </nav>
@@ -503,7 +505,7 @@ export default function App() {
                             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                         >
                             <nav className="mobile-menu-links">
-                                <a href="#story" onClick={() => setMobileMenuOpen(false)}>Why Sage</a>
+                                <a href="#story" onClick={() => setMobileMenuOpen(false)}>Why Aura</a>
                                 <a href="#how" onClick={() => setMobileMenuOpen(false)}>How it works</a>
                                 <a href="#security" onClick={() => setMobileMenuOpen(false)}>Security</a>
                             </nav>
@@ -527,7 +529,7 @@ export default function App() {
                 <section className="hero" ref={heroRef}>
                     <div className="hero-bg-grid" />
                     <GradientOrbs />
-                    <motion.div 
+                    <motion.div
                         className="floating-orb"
                         animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, 0] }}
                         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -535,13 +537,13 @@ export default function App() {
                     >
                         <MockGlassSphere size={48} />
                     </motion.div>
-                    <motion.div 
+                    <motion.div
                         className="floating-orb"
                         animate={{ y: [0, 20, 0], x: [0, -15, 0], rotate: [0, -10, 0] }}
                         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                         style={{ position: 'absolute', bottom: '25%', right: '10%', zIndex: 0, filter: 'blur(6px)', opacity: 0.6 }}
                     >
-                         <MockGlassSphere size={64} />
+                        <MockGlassSphere size={64} />
                     </motion.div>
                     <div className="container hero-layout">
                         <motion.div
@@ -563,7 +565,7 @@ export default function App() {
                                 for you on <span className="text-gradient">Solana.</span>
                             </h1>
                             <p className="hero-sub">
-                                Sage gives you AI-powered trading bots that find opportunities,
+                                Aura gives you AI-powered trading bots that find opportunities,
                                 enter positions, and manage risk — all from your phone.
                                 You stay in control. The AI does the work.
                             </p>
@@ -586,12 +588,12 @@ export default function App() {
                             <motion.div
                                 className="phone phone-hero"
                                 initial={{ opacity: 0, y: 60, rotateY: -8 }}
-                                animate={{ 
-                                    opacity: 1, 
-                                    y: [0, -15, 0], 
-                                    rotateY: 0 
+                                animate={{
+                                    opacity: 1,
+                                    y: [0, -15, 0],
+                                    rotateY: 0
                                 }}
-                                transition={{ 
+                                transition={{
                                     opacity: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
                                     y: { duration: 6, ease: "easeInOut", repeat: Infinity },
                                     rotateY: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }
@@ -661,7 +663,7 @@ export default function App() {
                             <span className="eyebrow">THE SOLUTION</span>
                             <h2>An AI agent that trades like the best — for you.</h2>
                             <p>
-                                Sage's ML model is trained on the strategies of top-performing
+                                Aura's ML model is trained on the strategies of top-performing
                                 Solana traders. It scans thousands of liquidity pools every 30 seconds,
                                 finds high-confidence opportunities, and enters positions automatically.
                             </p>
@@ -874,7 +876,7 @@ export default function App() {
                     <div className="container">
                         <Reveal>
                             <div className="section-header centered">
-                                <span className="eyebrow">WHY SAGE</span>
+                                <span className="eyebrow">WHY AURA</span>
                                 <h2>Not another trading dashboard.</h2>
                             </div>
                         </Reveal>
@@ -966,12 +968,33 @@ export default function App() {
             <footer className="footer">
                 <div className="container footer-inner">
                     <div className="footer-brand">
-                        <img src="/sage-logo.png" alt="Sage" className="logo-img" />
-                        <span>Sage</span>
+                        <img src="/sage-logo.png" alt="Aura" className="logo-img" />
+                        <span>Aura</span>
+                    </div>
+                    <div className="footer-links">
+                        <a href="https://x.com/useaura" target="_blank" rel="noopener noreferrer">@useaura</a>
+                        <a href="mailto:hello@useaura.wtf">hello@useaura.wtf</a>
                     </div>
                     <span className="footer-note">AI-powered trading on Solana.</span>
                 </div>
             </footer>
+
+            {/* Tawk.to Support Chat Widget */}
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                        (function(){
+                            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                            s1.async=true;
+                            s1.src='${TAWK_TO_URL}';
+                            s1.charset='UTF-8';
+                            s1.setAttribute('crossorigin','*');
+                            s0.parentNode.insertBefore(s1,s0);
+                        })();
+                    `,
+                }}
+            />
         </div>
     );
 }

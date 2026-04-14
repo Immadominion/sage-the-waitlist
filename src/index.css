@@ -489,7 +489,7 @@ p {
     color: var(--text-2);
     margin-bottom: 1.5rem;
     background: var(--elevated);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05), inset 0 0 0 1px rgba(255,255,255,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
@@ -571,7 +571,7 @@ p {
     pointer-events: none;
     z-index: 0;
     background-size: 80px 80px;
-    background-image: 
+    background-image:
         linear-gradient(to right, rgba(91, 141, 239, 0.05) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(91, 141, 239, 0.05) 1px, transparent 1px);
     mask-image: radial-gradient(circle at center, black 20%, transparent 70%);
@@ -581,7 +581,7 @@ p {
 }
 
 [data-theme='light'] .hero-bg-grid {
-    background-image: 
+    background-image:
         linear-gradient(to right, rgba(61, 111, 204, 0.06) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(61, 111, 204, 0.06) 1px, transparent 1px);
 }
@@ -1649,6 +1649,22 @@ p {
 .footer-note {
     font-size: 0.85rem;
     color: var(--text-3);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
 }
 
 /* ── Responsive ── */
