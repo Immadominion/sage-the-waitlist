@@ -39,7 +39,7 @@ import {
     Wallet,
 } from 'lucide-react';
 
-const APK_DOWNLOAD_URL = 'https://github.com/Immadominion/sage/releases/download/v1.0.2/app-release.apk';
+const APK_DOWNLOAD_URL = 'https://github.com/Immadominion/aura-the-app/releases/latest/download/app-release.apk';
 
 const TAWK_TO_URL = 'https://embed.tawk.to/68c3692a2d363c192cbaaea5/1j4tl5k2i';
 
@@ -477,6 +477,7 @@ export default function App() {
                         <a href="#story">Why Aura</a>
                         <a href="#how">How it works</a>
                         <a href="#security">Security</a>
+                        <a href="/whitepaper">Whitepaper</a>
                     </nav>
                     <div className="nav-right">
                         <button className="theme-btn" onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}>
@@ -508,6 +509,7 @@ export default function App() {
                                 <a href="#story" onClick={() => setMobileMenuOpen(false)}>Why Aura</a>
                                 <a href="#how" onClick={() => setMobileMenuOpen(false)}>How it works</a>
                                 <a href="#security" onClick={() => setMobileMenuOpen(false)}>Security</a>
+                                <a href="/whitepaper" onClick={() => setMobileMenuOpen(false)}>Whitepaper</a>
                             </nav>
                             <div className="mobile-menu-actions">
                                 <a href={APK_DOWNLOAD_URL} className="btn btn-outline" download>
@@ -972,6 +974,7 @@ export default function App() {
                         <span>Aura</span>
                     </div>
                     <div className="footer-links">
+                        <a href="/whitepaper">Whitepaper</a>
                         <a href="https://x.com/useaura" target="_blank" rel="noopener noreferrer">@useaura</a>
                         <a href="mailto:hello@useaura.wtf">hello@useaura.wtf</a>
                     </div>
