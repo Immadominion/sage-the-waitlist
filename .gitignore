@@ -22,8 +22,13 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+*.code-workspace
+*.bak
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Local scratch/inspiration assets
+public/inspiration/

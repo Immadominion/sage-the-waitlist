@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aura — Whitepaper</title>
+    <meta name="description"
+        content="Aura: Autonomous capital execution on Solana, powered by historical Meteora DLMM intelligence." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: #1e1e2e;
+            --text: #e4e4ed;
+            --muted: #8888a0;
+            --accent: #5eead4;
+            --accent-dim: rgba(94, 234, 212, 0.1);
+        }
+
+        body {
+            font-family: 'Manrope', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wp {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 6rem;
+        }
+
+        .wp-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .wp-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .wp-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .wp-header .meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .wp-header .meta span {
+            margin: 0 0.75rem;
+        }
+
+        .wp-back {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .wp-back:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .quiet {
+            color: var(--muted);
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .highlight {
+            background: var(--accent-dim);
+            border-left: 3px solid var(--accent);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight p {
+            margin-bottom: 0;
+        }
+
+        pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--muted);
+        }
+
+        code {
+            background: var(--surface);
+            padding: 0.15em 0.4em;
+            border-radius: 4px;
+            font-size: 0.88em;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .toc ol {
+            padding-left: 1.25rem;
+        }
+
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .wp {
+                padding: 2rem 1rem 4rem;
+            }
+
+            .wp-header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wp">
+        <a class="wp-back" href="/">&larr; Back to Aura</a>
+
+        <header class="wp-header">
+            <h1>Aura</h1>
+            <p class="subtitle">Autonomous Capital Execution on Solana</p>
+            <p class="meta">
+                April 2026<span>|</span>v1.0
+            </p>
+        </header>
+
+        <nav class="toc">
+            <h3>Contents</h3>
+            <ol>
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#data">Data Pipeline</a></li>
+                <li><a href="#model">Prediction Model</a></li>
+                <li><a href="#economics">Economics</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+            </ol>
+        </nav>
+
+        <!-- 1. ABSTRACT -->
+        <section id="abstract">
+            <span class="section-label">Section 1</span>
+            <h2>Abstract</h2>
+            <p>
+                Aura is an autonomous capital execution platform for Solana. It combines a proprietary dataset of
+                decoded Meteora DLMM transactions, a machine learning model trained on historical LP position outcomes,
+                and a mobile execution surface where users deploy capital under their own control.
+            </p>
+            <p>
+                The system addresses a specific inefficiency: profitable liquidity provision strategies exist on Meteora
+                DLMM but require constant monitoring, deep expertise, and custom tooling. Aura automates the
+                decision-making process by training on real position outcomes extracted from Solana's block archive,
+                then executing on behalf of users who retain full custody of their funds.
+            </p>
+        </section>
+
+        <hr />
+
+        <!-- 2. PROBLEM -->
+        <section id="problem">
+            <span class="section-label">Section 2</span>
+            <h2>Problem</h2>
+            <p>
+                Meteora's Dynamic Liquidity Market Maker (DLMM) concentrates swap fees to liquidity providers in the
+                active price bin. When positioned correctly, LPs earn the <strong>entire fee</strong> from swaps in
+                their bin — not a proportional share. This creates outsized returns for informed LPs and losses for
+                uninformed ones.
+            </p>
+
+            <div class="highlight">
+                <p>
+                    <strong>Reference signal:</strong> A single automated LP bot (FreesolGames) achieved a 77% win rate
+                    across 12,635 real positions, generating consistent monthly returns. The strategy works — but only
+                    as a script on a server, not as a product.
+                </p>
+            </div>
+
+            <p>The current landscape has three gaps:</p>
+            <ol>
+                <li><strong>No historical data</strong> — Existing tools operate on live Meteora API data (current
+                    state). No one has decoded historical LP outcomes at scale for training.</li>
+                <li><strong>No trained models</strong> — Competitors wrap LLMs around current market data and call it
+                    "AI." No trained prediction model exists for LP entry quality.</li>
+                <li><strong>No execution product</strong> — Profitable strategies exist as terminal scripts and bots. No
+                    designed product turns intelligence into autonomous execution for non-technical users.</li>
+            </ol>
+        </section>
+
+        <hr />
+
+        <!-- 3. SOLUTION -->
+        <section id="solution">
+            <span class="section-label">Section 3</span>
+            <h2>Solution</h2>
+            <p>
+                Aura operates at three layers — <strong>data</strong>, <strong>intelligence</strong>, and
+                <strong>execution</strong> — each of which is independently valuable and collectively forms a full-stack
+                autonomous trading platform.
+            </p>
+
+            <h3>Three Modes of Control</h3>
+            <p>The mobile app exposes three cognitive modes that match how users relate to their capital:</p>
+            <table>
+                <tr>
+                    <th>Mode</th>
+                    <th>Action</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>Execute</strong></td>
+                    <td>Instant swap</td>
+                    <td>Convert assets immediately via Jupiter Ultra</td>
+                </tr>
+                <tr>
+                    <td><strong>Automate</strong></td>
+                    <td>Rule-based bots</td>
+                    <td>User defines triggers and guardrails; system executes when conditions are met</td>
+                </tr>
+                <tr>
+                    <td><strong>Delegate</strong></td>
+                    <td>ML-managed LP</td>
+                    <td>User commits capital; Aura's model decides when to enter/exit positions</td>
+                </tr>
+            </table>
+            <p>
+                Non-custodial throughout. Users connect via Solana Mobile Wallet Adapter (MWA) and sign transactions
+                with their own wallet. Aura never holds private keys.
+            </p>
+        </section>
+
+        <hr />
+
+        <!-- 4. DATA PIPELINE -->
+        <section id="data">
+            <span class="section-label">Section 4</span>
+            <h2>Data Pipeline</h2>
+            <p>
+                The data layer is the core competitive advantage. It consists of a distributed extraction pipeline that
+                decodes historical Meteora DLMM transactions from Solana's block archive (Old Faithful — 244 TB, epochs
+                544–950).
+            </p>
+
+            <h3>Pipeline Architecture</h3>
+            <pre>
+Old Faithful Geyser → Rust Filter Plugin → Python Decoder → Parquet → S3
+  (raw blocks)        (DLMM txs only)     (24 event types)  (structured)</pre>
+
+            <h3>Event Types (24)</h3>
+            <p>The decoder extracts and structures the following event types from DLMM program instructions:</p>
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Events</th>
+                </tr>
+                <tr>
+                    <td>Position lifecycle</td>
+                    <td>PositionCreate, PositionClose, AddLiquidity, RemoveLiquidity, Rebalancing</td>
+                </tr>
+                <tr>
+                    <td>Fees</td>
+                    <td>ClaimFee, ClaimFee2, CompositionFee, FeeParameterUpdate, DynamicFeeParameterUpdate</td>
+                </tr>
+                <tr>
+                    <td>Market</td>
+                    <td>Swap, GoToABin, LbPairCreate</td>
+                </tr>
+                <tr>
+                    <td>Rewards</td>
+                    <td>ClaimReward, ClaimReward2, FundReward, InitializeReward, UpdateRewardDuration,
+                        UpdateRewardFunder, WithdrawIneligibleReward</td>
+                </tr>
+                <tr>
+                    <td>Position mgmt</td>
+                    <td>UpdatePositionOperator, UpdatePositionLockReleasePoint, IncreasePositionLength,
+                        DecreasePositionLength</td>
+                </tr>
+                <tr>
+                    <td>Oracle</td>
+                    <td>IncreaseObservation</td>
+                </tr>
+            </table>
+
+            <h3>Lifecycle Reconstruction</h3>
+            <p>
+                By chaining these events per position address, we reconstruct complete LP lifecycles:
+            </p>
+            <pre>
+PositionCreate → AddLiquidity → [Swaps in bins] → ClaimFee → RemoveLiquidity → PositionClose</pre>
+            <p>
+                For each lifecycle, we compute: total fees earned, impermanent loss from price movement, hold duration,
+                market conditions at entry, and whether the position was net profitable. This labeled dataset is what
+                the model trains on.
+            </p>
+        </section>
+
+        <hr />
+
+        <!-- 5. PREDICTION MODEL -->
+        <section id="model">
+            <span class="section-label">Section 5</span>
+            <h2>Prediction Model</h2>
+            <p>
+                A single XGBoost model trained on reconstructed position lifecycles. The model answers one question:
+                <strong>is this a good time to enter this pool?</strong>
+            </p>
+
+            <h3>Features</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Source</th>
+                </tr>
+                <tr>
+                    <td>Volume (30m, 1h, 2h, 4h, 24h)</td>
+                    <td>Aggregated from Swap events</td>
+                </tr>
+                <tr>
+                    <td>Fees (30m, 1h, 24h)</td>
+                    <td>Aggregated from ClaimFee + CompositionFee events</td>
+                </tr>
+                <tr>
+                    <td>Fee efficiency (1h)</td>
+                    <td>Computed: fees / volume ratio</td>
+                </tr>
+                <tr>
+                    <td>Liquidity</td>
+                    <td>Current pool TVL from Meteora API</td>
+                </tr>
+                <tr>
+                    <td>APR</td>
+                    <td>Annualized fee rate from Meteora API</td>
+                </tr>
+                <tr>
+                    <td>Volume-to-liquidity ratio</td>
+                    <td>Computed: activity relative to capital deployed</td>
+                </tr>
+            </table>
+
+            <h3>Current Performance</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Model</td>
+                    <td>XGBoost, 100 estimators, max_depth=4</td>
+                </tr>
+                <tr>
+                    <td>Training data</td>
+                    <td>1,600 samples (Dune Analytics)</td>
+                </tr>
+                <tr>
+                    <td>AUC</td>
+                    <td>0.94</td>
+                </tr>
+                <tr>
+                    <td>Target retraining</td>
+                    <td>100K+ Old Faithful lifecycles</td>
+                </tr>
+                <tr>
+                    <td>Inference</td>
+                    <td>&lt;1ms per prediction</td>
+                </tr>
+            </table>
+
+            <div class="highlight">
+                <p>
+                    The current model is promising but thin. Retraining on 100K+ reconstructed lifecycles from the Old
+                    Faithful pipeline is the critical path to statistical confidence.
+                </p>
+            </div>
+
+            <h3>What the Data Cannot Train</h3>
+            <p>
+                The historical DLMM dataset captures activity within Meteora only. It cannot train general market regime
+                detection (which requires external data like SOL price history, cross-DEX volumes, or funding rates) or
+                cross-protocol analytics.
+            </p>
+        </section>
+
+        <hr />
+
+        <!-- 6. ECONOMICS -->
+        <section id="economics">
+            <span class="section-label">Section 6</span>
+            <h2>Economics</h2>
+            <p>
+                The question: can an ML-guided LP bot generate positive returns after accounting for impermanent loss,
+                transaction costs, and model error?
+            </p>
+
+            <h3>Expected Value Per Trade</h3>
+            <p>Meteora DLMM concentrates 100% of swap fees to LPs in the active bin. A position in the right bin at the
+                right time earns outsized returns. A position in the wrong bin gets IL with no fees.</p>
+
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Average profitable position gain</td>
+                    <td>+5% (fees over position lifetime)</td>
+                </tr>
+                <tr>
+                    <td>Average unprofitable position loss</td>
+                    <td>-8% (IL exceeds fees)</td>
+                </tr>
+                <tr>
+                    <td>Win rate with model (projected)</td>
+                    <td>80%</td>
+                </tr>
+                <tr>
+                    <td><strong>Expected value per trade</strong></td>
+                    <td><strong>0.80 × 5% − 0.20 × 8% = +2.4%</strong></td>
+                </tr>
+            </table>
+
+            <h3>Monthly Projection</h3>
+            <p>At 1 SOL per trade, 3–5 trades/day:</p>
+            <ul>
+                <li>Daily: ~0.072 SOL</li>
+                <li>Monthly: ~2.2 SOL per 1 SOL deployed</li>
+                <li>At 5 SOL across concurrent positions: ~11 SOL/month</li>
+            </ul>
+            <p class="quiet">Consistent with FreesolGames reference data (~40 SOL/month at higher capital deployment).
+            </p>
+
+            <h3>Risk Factors</h3>
+            <ol>
+                <li><strong>Priority fees</strong> — Negligible at current volumes (&lt;0.05 SOL/month at 5 trades/day)
+                </li>
+                <li><strong>Fee dilution</strong> — More bots targeting the same pools reduces per-LP earnings</li>
+                <li><strong>Model drift</strong> — Market conditions change; weekly retraining mitigates this</li>
+                <li><strong>Token risk</strong> — High-fee pools are often memecoins with rug probability</li>
+                <li><strong>Without the model</strong> — Random entry yields ~45% win rate → expected value goes
+                    <strong>negative</strong> (−2.15% per trade)</li>
+            </ol>
+
+            <h3>Revenue Model</h3>
+            <table>
+                <tr>
+                    <th>Stream</th>
+                    <th>Mechanism</th>
+                </tr>
+                <tr>
+                    <td>Performance fee</td>
+                    <td>10% of Delegate mode profits (positive returns only)</td>
+                </tr>
+                <tr>
+                    <td>Pro subscription</td>
+                    <td>$9.99/mo — unlimited bots, advanced analytics</td>
+                </tr>
+                <tr>
+                    <td>Swap fee</td>
+                    <td>0.15% integrator fee on Jupiter Ultra swaps</td>
+                </tr>
+                <tr>
+                    <td>Data API</td>
+                    <td>Tiered subscription for historical DLMM data access</td>
+                </tr>
+                <tr>
+                    <td>Intelligence API</td>
+                    <td>ML predictions as a service (bundled with data)</td>
+                </tr>
+            </table>
+        </section>
+
+        <hr />
+
+        <!-- 7. ARCHITECTURE -->
+        <section id="architecture">
+            <span class="section-label">Section 7</span>
+            <h2>Architecture</h2>
+
+            <pre>
+┌─────────────────────────────────────────────────────────────┐
+│  DATA LAYER                                                  │
+│  Old Faithful → Geyser Plugin → Decoder → Parquet → S3      │
+│  50M+ events · 24 types · Epochs 544–950                     │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│  INTELLIGENCE LAYER                                          │
+│  XGBoost model · FastAPI serving · &lt;1ms inference           │
+│  Features: volume, fees, liquidity, bin activity             │
+│  Training: reconstructed position lifecycles                 │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│  EXECUTION LAYER                                             │
+│  Mobile: Flutter + MWA (Android)                             │
+│  Backend: Hono + PostgreSQL + SSE (Railway)                  │
+│  Wallet: AES-256-GCM encrypted keypairs per bot              │
+│  Swaps: Jupiter Ultra API                                    │
+│  LP: Meteora DLMM SDK                                        │
+│  Safety: CircuitBreaker + EmergencyStop + withdrawal whitelist│
+└─────────────────────────────────────────────────────────────┘</pre>
+
+            <h3>Key Technology Choices</h3>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Choice</th>
+                    <th>Rationale</th>
+                </tr>
+                <tr>
+                    <td>Mobile</td>
+                    <td>Flutter (Dart)</td>
+                    <td>MWA support, single codebase, fast iteration</td>
+                </tr>
+                <tr>
+                    <td>Backend</td>
+                    <td>Hono (TypeScript)</td>
+                    <td>Edge-first, fast, minimal overhead</td>
+                </tr>
+                <tr>
+                    <td>ML serving</td>
+                    <td>FastAPI (Python)</td>
+                    <td>XGBoost native, low latency</td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td>PostgreSQL</td>
+                    <td>JSONB for strategy configs, strong consistency</td>
+                </tr>
+                <tr>
+                    <td>Hosting</td>
+                    <td>Railway</td>
+                    <td>Simple deployment, auto-scaling</td>
+                </tr>
+                <tr>
+                    <td>Real-time</td>
+                    <td>SSE</td>
+                    <td>Simpler than WebSocket for unidirectional updates</td>
+                </tr>
+                <tr>
+                    <td>Block data</td>
+                    <td>Old Faithful + Geyser</td>
+                    <td>Only way to access full historical Solana blocks</td>
+                </tr>
+            </table>
+        </section>
+
+        <hr />
+
+        <!-- 8. SECURITY -->
+        <section id="security">
+            <span class="section-label">Section 8</span>
+            <h2>Security</h2>
+
+            <h3>Non-Custodial Design</h3>
+            <p>
+                Users connect via Solana Mobile Wallet Adapter. Transaction signing happens on-device. Aura's backend
+                never has access to user private keys.
+            </p>
+
+            <h3>Bot Wallet Security</h3>
+            <p>
+                For Delegate mode, per-bot keypairs are encrypted at rest with AES-256-GCM. Decryption happens in-memory
+                during execution only. Withdrawals are whitelisted to the user's verified wallet address only.
+            </p>
+
+            <h3>Safety Controls</h3>
+            <ul>
+                <li><strong>CircuitBreaker</strong> — Rate limits on trade frequency and exposure per bot</li>
+                <li><strong>EmergencyStop</strong> — Automatic halt on consecutive losses or drawdown threshold</li>
+                <li><strong>Kill switch</strong> — User can pause all operations at any time via the app</li>
+                <li><strong>Position limits</strong> — Maximum concurrent positions and per-position size caps</li>
+            </ul>
+        </section>
+
+        <hr />
+
+        <!-- 9. ROADMAP -->
+        <section id="roadmap">
+            <span class="section-label">Section 9</span>
+            <h2>Roadmap</h2>
+
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Focus</th>
+                    <th>Milestone</th>
+                </tr>
+                <tr>
+                    <td><strong>Now</strong></td>
+                    <td>Model retraining</td>
+                    <td>100K+ Old Faithful lifecycles → model v4</td>
+                </tr>
+                <tr>
+                    <td><strong>Launch</strong></td>
+                    <td>Product</td>
+                    <td>Production APK, Delegate mode live, Frontier submission</td>
+                </tr>
+                <tr>
+                    <td><strong>Month 3</strong></td>
+                    <td>Monetization</td>
+                    <td>Pro tier, Data API beta, 100 active users</td>
+                </tr>
+                <tr>
+                    <td><strong>Month 9</strong></td>
+                    <td>Scale</td>
+                    <td>Intelligence API, enterprise data partnerships, $50K MRR target</td>
+                </tr>
+            </table>
+        </section>
+
+        <hr />
+
+        <footer style="text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.85rem;">
+            <p>Aura &mdash; Autonomous Capital Execution on Solana</p>
+            <p style="margin-top: 0.5rem;"><a href="/"
+                    style="color: var(--accent); text-decoration: none;">useaura.wtf</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>

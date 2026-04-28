@@ -8,6 +8,7 @@ import {
     useMotionValue,
     useMotionValueEvent,
     AnimatePresence,
+    type MotionValue,
 } from 'framer-motion';
 import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 import {
@@ -106,50 +107,6 @@ function Counter({ value, suffix = '', prefix = '' }: { value: number; suffix?: 
 }
 
 /* ─────────────────────────────────────────────
-   Premium Glass Sphere (decorative)
-   ───────────────────────────────────────────── */
-function MockGlassSphere({ size = 48, className = '' }: { size?: number, className?: string }) {
-    return (
-        <svg
-            width={size}
-            height={size}
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={className}
-        >
-            <circle cx="50" cy="50" r="48" fill="url(#glass-gradient)" fillOpacity="0.4" stroke="url(#glass-border)" strokeWidth="1.5" />
-            <ellipse cx="40" cy="30" rx="15" ry="10" transform="rotate(-30 40 30)" fill="white" fillOpacity="0.8" filter="blur(4px)" />
-            <path d="M 20 50 A 30 30 0 0 0 80 50" stroke="white" strokeWidth="2" strokeOpacity="0.3" fill="none" filter="blur(2px)" />
-            <defs>
-                <linearGradient id="glass-gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="white" stopOpacity="0.8" />
-                    <stop offset="0.5" stopColor="var(--accent)" stopOpacity="0.2" />
-                    <stop offset="1" stopColor="white" stopOpacity="0.1" />
-                </linearGradient>
-                <linearGradient id="glass-border" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="white" stopOpacity="0.8" />
-                    <stop offset="1" stopColor="white" stopOpacity="0.2" />
-                </linearGradient>
-            </defs>
-        </svg>
-    )
-}
-
-/* ─────────────────────────────────────────────
-   Floating gradient orbs (background decoration)
-   ───────────────────────────────────────────── */
-function GradientOrbs() {
-    return (
-        <div className="gradient-orbs" aria-hidden="true">
-            <div className="orb orb-1" />
-            <div className="orb orb-2" />
-            <div className="orb orb-3" />
-        </div>
-    );
-}
-
-/* ─────────────────────────────────────────────
    Waitlist email form (click-to-expand)
    ───────────────────────────────────────────── */
 function WaitlistForm({ label, className = '' }: { label: string; className?: string }) {
@@ -232,6 +189,9 @@ function WaitlistForm({ label, className = '' }: { label: string; className?: st
                 <input
                     ref={inputRef}
                     type="email"
+                    name="email"
+                    autoComplete="email"
+                    aria-label="Email address"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => {
@@ -304,34 +264,34 @@ function AutomateScreen() {
                     <span className="app-balance-val">+12</span>
                     <span className="app-balance-dec">.47 SOL</span>
                 </div>
-                <span className="app-sub">3 running · 847 trades total</span>
+                <span className="app-sub">3 strategies live · Meteora DLMM focus</span>
                 <div className="app-stats">
                     <div className="app-stat">
-                        <span className="app-stat-val">847</span>
-                        <span className="app-stat-lbl">Trades</span>
+                        <span className="app-stat-val">50M+</span>
+                        <span className="app-stat-lbl">Train Set</span>
                     </div>
                     <div className="app-stat">
-                        <span className="app-stat-val">73%</span>
-                        <span className="app-stat-lbl">Win Rate</span>
+                        <span className="app-stat-val">77%</span>
+                        <span className="app-stat-lbl">Hit Rate</span>
                     </div>
                     <div className="app-stat">
                         <span className="app-stat-val">3</span>
-                        <span className="app-stat-lbl">Bots</span>
+                        <span className="app-stat-lbl">Modes</span>
                     </div>
                 </div>
                 <div className="app-banner">
                     <div className="app-banner-content">
-                        <h4>Fleet Leaderboard</h4>
-                        <p>See how your bots rank against the platform.</p>
+                        <h4>Model Briefing</h4>
+                        <p>Historical signals are flowing into live DLMM execution.</p>
                     </div>
                 </div>
                 <div className="app-bots-section mt-4">
-                    <span className="app-label">BOTS</span>
+                    <span className="app-label">AGENTS</span>
                     <div className="app-bot-item">
                         <div className="app-bot-left">
                             <span className="app-dot green" />
                             <div className="app-bot-info">
-                                <h5>Alpha Hunter</h5>
+                                <h5>Rule Engine</h5>
                                 <p>Running · 2h ago · 312 scans</p>
                             </div>
                         </div>
@@ -344,7 +304,7 @@ function AutomateScreen() {
                         <div className="app-bot-left">
                             <span className="app-dot green" />
                             <div className="app-bot-info">
-                                <h5>Dip Buyer</h5>
+                                <h5>Aura Delegate</h5>
                                 <p>Running · 5h ago · 128 scans</p>
                             </div>
                         </div>
@@ -356,7 +316,7 @@ function AutomateScreen() {
                 </div>
                 <div className="app-bottom-action">
                     <button className="app-btn-primary">
-                        <Plus size={16} /> New Strategy
+                        <Plus size={16} /> New Agent
                     </button>
                 </div>
             </div>
@@ -380,24 +340,28 @@ function MonitorScreen() {
                         <div className="app-status-badge running">
                             <span className="app-dot green" /> Running
                         </div>
-                        <h2 className="app-title-lg">Alpha Hunter</h2>
-                        <span className="app-sub text-md">live · 0.5 SOL per position</span>
+                        <h2 className="app-title-lg">DLMM Delegate</h2>
+                        <span className="app-sub text-md">delegate · Meteora DLMM · 0.5 SOL risk</span>
                     </div>
-                    <div className="app-tag-badge">Aura AI</div>
+                    <div className="app-tag-badge">Non-custodial</div>
                 </div>
                 <div className="mt-4">
                     <span className="app-label">NET P&L</span>
                     <div className="app-balance text-profit mt-1">
                         <span className="app-balance-val">+4.8200 SOL</span>
                     </div>
-                    <span className="app-sub">312 trades · 73% win rate</span>
+                    <span className="app-sub">312 trades · historical edge live</span>
                 </div>
                 <div className="app-params-section mt-6">
-                    <span className="app-label">PARAMETERS</span>
+                    <span className="app-label">EXECUTION POLICY</span>
                     <div className="app-param-list mt-2">
                         <div className="app-param-row">
-                            <span className="app-param-lbl">Entry Threshold</span>
-                            <span className="app-param-val">150%</span>
+                            <span className="app-param-lbl">Market</span>
+                            <span className="app-param-val">Meteora DLMM</span>
+                        </div>
+                        <div className="app-param-row">
+                            <span className="app-param-lbl">Training Set</span>
+                            <span className="app-param-val">50M+ txs</span>
                         </div>
                         <div className="app-param-row">
                             <span className="app-param-lbl">Position Size</span>
@@ -408,8 +372,8 @@ function MonitorScreen() {
                             <span className="app-param-val">5</span>
                         </div>
                         <div className="app-param-row">
-                            <span className="app-param-lbl">Cooldown</span>
-                            <span className="app-param-val">79 min</span>
+                            <span className="app-param-lbl">Fee Model</span>
+                            <span className="app-param-val">Active bin</span>
                         </div>
                         <div className="app-param-row">
                             <span className="app-param-lbl">Stop Loss</span>
@@ -418,10 +382,6 @@ function MonitorScreen() {
                         <div className="app-param-row">
                             <span className="app-param-lbl">Profit Target</span>
                             <span className="app-param-val">+25.0%</span>
-                        </div>
-                        <div className="app-param-row">
-                            <span className="app-param-lbl">Max Hold Time</span>
-                            <span className="app-param-val">360 min</span>
                         </div>
                         <div className="app-param-row">
                             <span className="app-param-lbl">Scan Interval</span>
@@ -435,14 +395,154 @@ function MonitorScreen() {
 }
 
 /* ─────────────────────────────────────────────
+   HorizontalScreen — single item in the horizontal
+   carousel. Each item translates and scales based on its
+   distance from the focused index, which advances with scroll.
+   ───────────────────────────────────────────── */
+function HorizontalScreen({
+    progress,
+    index,
+    count,
+    children,
+}: {
+    progress: MotionValue<number>;
+    index: number;
+    count: number;
+    children: React.ReactNode;
+}) {
+    const itemW = 340; // horizontal spacing between items
+    // Focus starts at 1 (so item 0 sits to the LEFT of frame on load) and ends at count-1.
+    // x = (index - focus) * itemW, where focus moves from 1 → count-1 with scroll.
+    const x = useTransform(progress, (v: number) => (index - (1 + v * (count - 2))) * itemW);
+    // As it gets closer to 0, scale approaches 1, otherwise it shrinks
+    const rotateY = useTransform(x, [-2 * itemW, 0, 2 * itemW], [35, 0, -35]);
+    const opacity = useTransform(x, [-2 * itemW, -0.2 * itemW, 0, 0.2 * itemW, 2 * itemW], [0, 1, 1, 1, 0]);
+    const scale = useTransform(x, [-2 * itemW, 0, 2 * itemW], [0.75, 1, 0.75]);
+    const z = useTransform(x, (v: number) => -Math.abs(v) * 0.5);
+
+    return (
+        <motion.div
+            className="horizontal-screen-item"
+            style={{ x, rotateY, opacity, scale, z }}
+        >
+            {children}
+        </motion.div>
+    );
+}
+
+/* ─────────────────────────────────────────────
+   Proximity-only floating logo.
+   Each instance reacts only when the cursor is within RADIUS px
+   of its own bounding-box center — no global "everything moves" effect.
+   ───────────────────────────────────────────── */
+function ProximityFloater({
+    src,
+    alt,
+    size,
+    className = '',
+    mouseX,
+    mouseY,
+    strength = 0.35,
+    radius = 220,
+    delay = 0,
+    rotate = 0,
+}: {
+    src: string;
+    alt: string;
+    size: number;
+    className?: string;
+    mouseX: MotionValue<number>;
+    mouseY: MotionValue<number>;
+    strength?: number;
+    radius?: number;
+    delay?: number;
+    rotate?: number;
+}) {
+    const ref = useRef<HTMLDivElement>(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const sx = useSpring(x, { stiffness: 140, damping: 18, mass: 0.4 });
+    const sy = useSpring(y, { stiffness: 140, damping: 18, mass: 0.4 });
+
+    const update = () => {
+        const el = ref.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = mouseX.get() - cx;
+        const dy = mouseY.get() - cy;
+        const dist = Math.hypot(dx, dy);
+        if (dist > radius) {
+            x.set(0);
+            y.set(0);
+        } else {
+            const factor = (1 - dist / radius) * strength;
+            x.set(dx * factor);
+            y.set(dy * factor);
+        }
+    };
+
+    useMotionValueEvent(mouseX, 'change', update);
+    useMotionValueEvent(mouseY, 'change', update);
+
+    return (
+        <motion.div
+            ref={ref}
+            className={`floating-logo ${className}`}
+            style={{ x: sx, y: sy, rotate }}
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.15, filter: 'brightness(1.1)' }}
+            transition={{
+                delay,
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1],
+                scale: { type: 'spring', stiffness: 300, damping: 15 },
+            }}
+        >
+            <img src={src} alt={alt} width={size} height={size} draggable={false} style={{ pointerEvents: 'none' }} />
+        </motion.div>
+    );
+}
+
+/* ─────────────────────────────────────────────
+   ControlSurfaceMobilePhone — mobile-only single phone
+   that cross-fades from AutomateScreen to MonitorScreen as
+   the user scrolls past the section, then continues normally.
+   ───────────────────────────────────────────── */
+function ControlSurfaceMobilePhone() {
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start 80%', 'start 20%'],
+    });
+    const automateOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0]);
+    const monitorOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0, 1]);
+    return (
+        <div ref={ref} className="phone phone-large preview-mobile-only">
+            <motion.div className="control-surface-screen-layer" style={{ opacity: automateOpacity }}>
+                <AutomateScreen />
+            </motion.div>
+            <motion.div className="control-surface-screen-layer" style={{ opacity: monitorOpacity }}>
+                <MonitorScreen />
+            </motion.div>
+        </div>
+    );
+}
+
+/* ─────────────────────────────────────────────
    Main App
    ───────────────────────────────────────────── */
 export default function App() {
-    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-    const [heroPhone, setHeroPhone] = useState<'automate' | 'monitor'>('automate');
+    const [theme, setTheme] = useState<'dark' | 'light'>('light');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    // Parallax refs
+    // Page-wide scroll progress (top hairline bar)
+    const { scrollYProgress: pageProgress } = useScroll();
+    const pageProgressX = useSpring(pageProgress, { stiffness: 120, damping: 30, mass: 0.2 });
+
+    // Hero parallax refs
     const heroRef = useRef(null);
     const { scrollYProgress: heroProgress } = useScroll({
         target: heroRef,
@@ -452,20 +552,37 @@ export default function App() {
     const heroScale = useTransform(heroProgress, [0, 1], [1, 0.92]);
     const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
 
+    // 3D rotation for the phone cluster on scroll
+    const heroPhoneRotateX = useTransform(heroProgress, [0, 1], [15, -10]);
+    const heroPhoneScale = useTransform(heroProgress, [0, 1], [1, 0.95]);
+
+    // Raw viewport-relative cursor position (used by ProximityFloater).
+    // Stored in motion values to avoid re-renders on every mousemove.
+    const mouseX = useMotionValue(-9999);
+    const mouseY = useMotionValue(-9999);
+    const handleMouseMove = (e: React.MouseEvent) => {
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+    };
+    const handleMouseLeave = () => {
+        mouseX.set(-9999);
+        mouseY.set(-9999);
+    };
+
+    // Horizontal scroll progress. We snap the underlying scroll progress to
+    // discrete indices so that scrolling snaps visually to each phone frame.
+    // There are 5 slides, meaning 4 steps (0, 0.25, 0.5, 0.75, 1).
+    const snappedHeroProgress = useTransform(heroProgress, (v: number) => Math.round(v * 4) / 4);
+    // Apply a spring to the snapped progress so the transitions between snaps are fluid and weighty
+    const horizontalProgress = useSpring(snappedHeroProgress, { stiffness: 120, damping: 20, mass: 0.6 });
+
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
-    // Auto-switch hero phone every 5 seconds
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setHeroPhone(prev => prev === 'automate' ? 'monitor' : 'automate');
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <div className="page">
+            <motion.div className="scroll-progress" style={{ scaleX: pageProgressX }} />
             {/* ═══ NAV ═══ */}
             <header className="nav">
                 <div className="nav-inner container">
@@ -474,9 +591,10 @@ export default function App() {
                         <span>Aura</span>
                     </a>
                     <nav className="nav-links">
-                        <a href="#story">Why Aura</a>
-                        <a href="#how">How it works</a>
+                        <a href="#proof">Proof</a>
+                        <a href="#modes">Modes</a>
                         <a href="#security">Security</a>
+                        <a href="/pitch">Pitch</a>
                         <a href="/whitepaper">Whitepaper</a>
                     </nav>
                     <div className="nav-right">
@@ -486,7 +604,7 @@ export default function App() {
                         <a href={APK_DOWNLOAD_URL} className="btn btn-outline btn-sm nav-download" download>
                             <Download size={14} /> Download
                         </a>
-                        <a href="#cta" className="btn btn-primary btn-sm nav-cta">Get early access</a>
+                        <a href="#cta" className="btn btn-primary btn-sm nav-cta">Request access</a>
                     </div>
                     <button
                         className="mobile-menu-btn"
@@ -506,9 +624,10 @@ export default function App() {
                             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                         >
                             <nav className="mobile-menu-links">
-                                <a href="#story" onClick={() => setMobileMenuOpen(false)}>Why Aura</a>
-                                <a href="#how" onClick={() => setMobileMenuOpen(false)}>How it works</a>
+                                <a href="#proof" onClick={() => setMobileMenuOpen(false)}>Proof</a>
+                                <a href="#modes" onClick={() => setMobileMenuOpen(false)}>Modes</a>
                                 <a href="#security" onClick={() => setMobileMenuOpen(false)}>Security</a>
+                                <a href="/pitch" onClick={() => setMobileMenuOpen(false)}>Pitch</a>
                                 <a href="/whitepaper" onClick={() => setMobileMenuOpen(false)}>Whitepaper</a>
                             </nav>
                             <div className="mobile-menu-actions">
@@ -516,7 +635,7 @@ export default function App() {
                                     <Download size={16} /> Download APK
                                 </a>
                                 <a href="#cta" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>
-                                    Get early access <ArrowRight size={16} />
+                                    Request access <ArrowRight size={16} />
                                 </a>
                             </div>
                         </motion.div>
@@ -528,28 +647,11 @@ export default function App() {
                 {/* ═══════════════════════════════════════
                     SECTION 1 — HERO
                     ═══════════════════════════════════════ */}
-                <section className="hero" ref={heroRef}>
+                <section className="hero" ref={heroRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                     <div className="hero-bg-grid" />
-                    <GradientOrbs />
-                    <motion.div
-                        className="floating-orb"
-                        animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [0, 10, 0] }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                        style={{ position: 'absolute', top: '20%', left: '15%', zIndex: 0, filter: 'blur(4px)', opacity: 0.8 }}
-                    >
-                        <MockGlassSphere size={48} />
-                    </motion.div>
-                    <motion.div
-                        className="floating-orb"
-                        animate={{ y: [0, 20, 0], x: [0, -15, 0], rotate: [0, -10, 0] }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        style={{ position: 'absolute', bottom: '25%', right: '10%', zIndex: 0, filter: 'blur(6px)', opacity: 0.6 }}
-                    >
-                        <MockGlassSphere size={64} />
-                    </motion.div>
-                    <div className="container hero-layout">
+                    <div className="container hero-layout-center">
                         <motion.div
-                            className="hero-text"
+                            className="hero-text-center"
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -560,16 +662,14 @@ export default function App() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.3, duration: 0.5 }}
                             >
-                                Now in early access
+                                Android beta · early access
                             </motion.span>
                             <h1>
-                                Let AI trade<br />
-                                for you on <span className="text-gradient">Solana.</span>
+                                Your Meteora LP,<br />on autopilot.
                             </h1>
                             <p className="hero-sub">
-                                Aura gives you AI-powered trading bots that find opportunities,
-                                enter positions, and manage risk — all from your phone.
-                                You stay in control. The AI does the work.
+                                Aura runs Meteora DLMM positions for you from a non-custodial Android app.<br />
+                                Execute swaps through Jupiter, automate your own rules, or delegate LP timing to the model — keys never leave your wallet.
                             </p>
                             <motion.div
                                 className="hero-actions"
@@ -577,44 +677,48 @@ export default function App() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <WaitlistForm label="Start trading smarter" />
+                                <a href="#cta" className="btn btn-primary">Request access</a>
                                 <a href={APK_DOWNLOAD_URL} className="btn btn-outline" download>
-                                    <Download size={16} /> Download for Android
+                                    <Download size={16} /> Download
                                 </a>
                             </motion.div>
                         </motion.div>
                         <motion.div
-                            className="hero-visual"
+                            className="hero-visual-center"
                             style={{ y: heroParallax, scale: heroScale, opacity: heroOpacity }}
                         >
+                            {/* Floating protocol logos — proximity-only mouse parallax. */}
+                            <ProximityFloater src="/jupiter.svg" alt="Jupiter" size={56} className="fl fl-1" mouseX={mouseX} mouseY={mouseY} delay={0.4} rotate={-8} />
+                            <ProximityFloater src="/meteora.png" alt="Meteora" size={72} className="fl fl-2" mouseX={mouseX} mouseY={mouseY} delay={0.55} rotate={6} />
+                            <ProximityFloater src="/pump.png" alt="Pump.fun" size={44} className="fl fl-3" mouseX={mouseX} mouseY={mouseY} delay={0.7} rotate={-4} />
+                            <ProximityFloater src="/jupiter.svg" alt="" size={36} className="fl fl-4" mouseX={mouseX} mouseY={mouseY} delay={0.85} rotate={14} />
+                            <ProximityFloater src="/pump.png" alt="" size={64} className="fl fl-5" mouseX={mouseX} mouseY={mouseY} delay={1.0} rotate={-10} />
+                            <ProximityFloater src="/meteora.png" alt="" size={40} className="fl fl-6" mouseX={mouseX} mouseY={mouseY} delay={1.15} rotate={3} />
+
+                            {/* Horizontal scrolling carousel of screens translating into the center phone frame. */}
                             <motion.div
-                                className="phone phone-hero"
-                                initial={{ opacity: 0, y: 60, rotateY: -8 }}
-                                animate={{
-                                    opacity: 1,
-                                    y: [0, -15, 0],
-                                    rotateY: 0
-                                }}
-                                transition={{
-                                    opacity: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
-                                    y: { duration: 6, ease: "easeInOut", repeat: Infinity },
-                                    rotateY: { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }
-                                }}
+                                className="hero-phones-cluster"
+                                style={{ rotateX: heroPhoneRotateX, scale: heroPhoneScale }}
                             >
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={heroPhone}
-                                        initial={{ opacity: 0, scale: 0.96 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.96 }}
-                                        transition={{ duration: 0.4 }}
-                                        style={{ height: '100%' }}
-                                    >
-                                        {heroPhone === 'automate' ? <AutomateScreen /> : <MonitorScreen />}
-                                    </motion.div>
-                                </AnimatePresence>
+                                {/* Static phone shell */}
+                                <div className="phone-empty-shell" />
+
+                                {/* Scrolling screens that appear to slide inside/behind the phone shell */}
+                                <div className="horizontal-screens-container" aria-hidden>
+                                    {[
+                                        <MonitorScreen key="m1" />,
+                                        <AutomateScreen key="a1" />,
+                                        <MonitorScreen key="m2" />,
+                                        <AutomateScreen key="a2" />,
+                                        <MonitorScreen key="m3" />,
+                                    ].map((screen, i, arr) => (
+                                        <HorizontalScreen key={i} progress={horizontalProgress} index={i} count={arr.length}>
+                                            {screen}
+                                        </HorizontalScreen>
+                                    ))}
+                                </div>
+                                <div className="phone-glow-center" />
                             </motion.div>
-                            <div className="phone-glow" />
                         </motion.div>
                     </div>
                     <div className="hero-scroll-hint">
@@ -630,24 +734,27 @@ export default function App() {
                 {/* ═══════════════════════════════════════
                     SECTION 2 — THE PROBLEM (with Rive robot)
                     ═══════════════════════════════════════ */}
-                <section className="section section-full" id="story">
+                <section className="section section-full" id="proof">
                     <div className="container split-layout">
                         <Reveal className="split-text" direction="left">
-                            <span className="eyebrow">THE PROBLEM</span>
-                            <h2>You're missing trades while you sleep.</h2>
+                            <span className="eyebrow">THE GAP</span>
+                            <h2>Live APIs show the pool. They do not show the edge.</h2>
                             <p>
-                                The best liquidity pool opportunities on Solana appear and
-                                disappear in minutes. Manual trading means you're always late,
-                                always watching charts, and always second-guessing.
+                                Most crypto automation only sees current liquidity, price,
+                                and volume. Meteora DLMM rewards LPs for being in the right
+                                bin before fees concentrate. That is a historical pattern
+                                problem, not a dashboard problem.
                             </p>
                             <p>
-                                What if an AI agent could watch the markets 24/7, spot the right
-                                moments, and act — while you live your life?
+                                Manual traders are late. API-only agents have no memory.
+                                The advantage comes from reconstructing how positions actually
+                                behaved across millions of past transactions and deploying that
+                                insight into execution.
                             </p>
                         </Reveal>
                         <Reveal className="split-visual" direction="right" delay={0.15}>
                             <RiveRobot src="/no-agent.riv" className="rive-large" />
-                            <p className="visual-caption">Your agent, waiting to be deployed.</p>
+                            <p className="visual-caption">What most bots see: current pool state, without historical memory.</p>
                         </Reveal>
                     </div>
                 </section>
@@ -659,20 +766,22 @@ export default function App() {
                     <div className="container split-layout reverse">
                         <Reveal className="split-visual" direction="left" delay={0.15}>
                             <RiveRobot src="/fly-agent.riv" className="rive-large" />
-                            <p className="visual-caption">Your agent, actively trading.</p>
+                            <p className="visual-caption">What Aura adds: learned history, constrained execution, mobile control.</p>
                         </Reveal>
                         <Reveal className="split-text" direction="right">
-                            <span className="eyebrow">THE SOLUTION</span>
-                            <h2>An AI agent that trades like the best — for you.</h2>
+                            <span className="eyebrow">THE MOAT</span>
+                            <h2>Aura built the missing data and execution stack first.</h2>
                             <p>
-                                Aura's ML model is trained on the strategies of top-performing
-                                Solana traders. It scans thousands of liquidity pools every 30 seconds,
-                                finds high-confidence opportunities, and enters positions automatically.
+                                Aura extracted 244 TB of Old Faithful archives, decoded 50M+
+                                Meteora DLMM transactions into structured training data, trained
+                                on real LP outcomes, and wired the result into a non-custodial
+                                mobile execution engine. The current benchmark is a 77% win rate
+                                across 12,635 real Meteora positions.
                             </p>
                             <div className="feature-pills">
-                                <span className="pill"><TrendingUp size={14} /> 73% win rate target</span>
-                                <span className="pill"><Zap size={14} /> 30-second scan cycles</span>
-                                <span className="pill"><Bot size={14} /> Runs 24/7</span>
+                                <span className="pill"><TrendingUp size={14} /> 77% historical win rate</span>
+                                <span className="pill"><Zap size={14} /> 30-second scan cadence</span>
+                                <span className="pill"><Bot size={14} /> 25 decoded DLMM event types</span>
                             </div>
                         </Reveal>
                     </div>
@@ -681,32 +790,36 @@ export default function App() {
                 {/* ═══════════════════════════════════════
                     SECTION 4 — HOW IT WORKS (steps)
                     ═══════════════════════════════════════ */}
-                <section className="section section-full" id="how">
+                <section className="section section-full" id="modes">
                     <div className="container">
                         <Reveal>
                             <div className="section-header centered">
-                                <span className="eyebrow">HOW IT WORKS</span>
-                                <h2>From zero to AI-powered trading in 3 steps.</h2>
+                                <span className="eyebrow">THREE MODES</span>
+                                <h2>One system, three levels of control.</h2>
+                                <p className="section-sub">
+                                    Start with direct execution, add rule-based automation,
+                                    or hand Meteora LP timing to the model.
+                                </p>
                             </div>
                         </Reveal>
                         <div className="steps-grid">
                             {[
                                 {
                                     num: '01',
-                                    title: 'Sign in with your wallet',
-                                    desc: 'Connect any Solana wallet to sign in. Fund your bot with exactly what you want to trade — withdraw anytime.',
-                                    icon: SlidersHorizontal,
+                                    title: 'Execute',
+                                    desc: 'Route swaps through Jupiter when you want direct control and instant mobile execution.',
+                                    icon: Zap,
                                 },
                                 {
                                     num: '02',
-                                    title: 'Set your rules',
-                                    desc: 'Choose how much to invest per trade, your risk tolerance, and profit targets. The AI follows your rules, not its own.',
-                                    icon: Bot,
+                                    title: 'Automate',
+                                    desc: 'Define entries, exits, sizing, and risk. Aura watches the market and acts inside your limits.',
+                                    icon: SlidersHorizontal,
                                 },
                                 {
                                     num: '03',
-                                    title: 'Let the AI work',
-                                    desc: 'Your bot scans the market, enters positions when confident, and exits automatically. Watch live from your phone.',
+                                    title: 'Delegate',
+                                    desc: 'Let the model handle Meteora DLMM timing while you keep custody, visibility, and the ability to stop anytime.',
                                     icon: Sparkles,
                                 },
                             ].map((step, i) => (
@@ -731,28 +844,31 @@ export default function App() {
                     <div className="container">
                         <Reveal>
                             <div className="section-header centered">
-                                <span className="eyebrow">THE APP</span>
-                                <h2>Everything you need. Nothing you don't.</h2>
+                                <span className="eyebrow">THE CONTROL SURFACE</span>
+                                <h2>One mobile interface for execute, automate, and delegate.</h2>
                                 <p className="section-sub">
-                                    Control your AI trading bots, monitor P&L, and adjust strategies
-                                    — all from a single mobile screen.
+                                    Check P&amp;L, inspect parameters, pause exposure, and move
+                                    capital without living in a browser dashboard or terminal.
                                 </p>
                             </div>
                         </Reveal>
                         <Reveal delay={0.2}>
                             <div className="app-preview-layout">
+                                {/* Desktop: two phones side-by-side */}
                                 <motion.div
-                                    className="phone phone-large"
+                                    className="phone phone-large preview-desktop-only"
                                     whileHover={{ y: -8, transition: { duration: 0.3 } }}
                                 >
                                     <AutomateScreen />
                                 </motion.div>
                                 <motion.div
-                                    className="phone phone-large phone-offset"
+                                    className="phone phone-large phone-offset preview-desktop-only"
                                     whileHover={{ y: -8, transition: { duration: 0.3 } }}
                                 >
                                     <MonitorScreen />
                                 </motion.div>
+                                {/* Mobile: single phone, scroll cross-fades Automate -> Monitor */}
+                                <ControlSurfaceMobilePhone />
                             </div>
                         </Reveal>
                     </div>
@@ -765,23 +881,23 @@ export default function App() {
                     <div className="container">
                         <div className="metrics-row">
                             <div className="metric-item">
-                                <span className="metric-value"><Counter value={73} suffix="%" /></span>
-                                <span className="metric-label">Win Rate Target</span>
+                                <span className="metric-value"><Counter value={50} suffix="M+" /></span>
+                                <span className="metric-label">decoded DLMM transactions</span>
                             </div>
                             <div className="metric-divider" />
                             <div className="metric-item">
-                                <span className="metric-value"><Counter value={30} suffix="s" /></span>
-                                <span className="metric-label">Scan Interval</span>
+                                <span className="metric-value"><Counter value={244} suffix=" TB" /></span>
+                                <span className="metric-label">Old Faithful archive processed</span>
                             </div>
                             <div className="metric-divider" />
                             <div className="metric-item">
-                                <span className="metric-value">24/7</span>
-                                <span className="metric-label">Always Running</span>
+                                <span className="metric-value"><Counter value={77} suffix="%" /></span>
+                                <span className="metric-label">historical win rate proof</span>
                             </div>
                             <div className="metric-divider" />
                             <div className="metric-item">
                                 <span className="metric-value"><Counter value={0} /></span>
-                                <span className="metric-label">Private Keys Shared</span>
+                                <span className="metric-label">user wallet keys shared</span>
                             </div>
                         </div>
                     </div>
@@ -794,44 +910,44 @@ export default function App() {
                     <div className="container split-layout">
                         <Reveal className="split-text" direction="left">
                             <span className="eyebrow">SECURITY MODEL</span>
-                            <h2>Your rules. Enforced by code.</h2>
+                            <h2>Non-custodial by design. Constrained in code.</h2>
                             <p>
-                                Every bot runs in its own isolated wallet. You fund it with
-                                exactly what you're willing to risk — and withdraw anytime.
-                                The bot can only trade within the strict parameters you set.
+                                Aura uses Solana Mobile Wallet Adapter for user authorization.
+                                Your main wallet signs setup and funding. It is never handed to
+                                the backend for day-to-day execution.
                             </p>
                             <p>
-                                Position sizes, stop losses, profit targets, max concurrent
-                                positions — these aren't suggestions. They're hard limits the
-                                engine enforces on every single trade.
+                                Each agent gets its own encrypted keypair, isolated wallet,
+                                withdrawal whitelist, and enforced limits on position size,
+                                stop loss, exposure, and concurrency.
                             </p>
                             <div className="trust-list">
                                 <div className="trust-item">
                                     <Wallet size={18} />
                                     <div>
-                                        <strong>Isolated bot wallets</strong>
-                                        <span>Each bot has its own sandboxed wallet — your main wallet is never touched</span>
+                                        <strong>Wallet-first authorization</strong>
+                                        <span>Sign in and approve funding from your own Solana wallet.</span>
                                     </div>
                                 </div>
                                 <div className="trust-item">
                                     <Lock size={18} />
                                     <div>
-                                        <strong>Hard-coded risk limits</strong>
-                                        <span>Max loss, position size, and exposure caps enforced every cycle</span>
+                                        <strong>Per-agent encrypted keys</strong>
+                                        <span>Each bot keypair is AES-256-GCM encrypted and isolated from every other agent.</span>
                                     </div>
                                 </div>
                                 <div className="trust-item">
                                     <Eye size={18} />
                                     <div>
-                                        <strong>Full transparency</strong>
-                                        <span>Every trade, every decision — logged and visible in real time</span>
+                                        <strong>Withdrawal whitelist</strong>
+                                        <span>Funds return only to the wallet you authenticated with.</span>
                                     </div>
                                 </div>
                                 <div className="trust-item">
                                     <Shield size={18} />
                                     <div>
-                                        <strong>Withdraw anytime</strong>
-                                        <span>Pull your funds back to any wallet instantly — zero lock-up</span>
+                                        <strong>Kill switch and full logs</strong>
+                                        <span>Pause the agent instantly and inspect every trade decision in real time.</span>
                                     </div>
                                 </div>
                             </div>
@@ -841,9 +957,17 @@ export default function App() {
                                 <div className="security-card">
                                     <div className="security-card-header">
                                         <Lock size={20} />
-                                        <span>Bot Execution Limits</span>
+                                        <span>Agent Guardrails</span>
                                     </div>
                                     <div className="security-params">
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Wallet Model</span>
+                                            <span className="security-param-val accent">Isolated</span>
+                                        </div>
+                                        <div className="security-param">
+                                            <span className="security-param-lbl">Key Storage</span>
+                                            <span className="security-param-val">Encrypted</span>
+                                        </div>
                                         <div className="security-param">
                                             <span className="security-param-lbl">Max Position Size</span>
                                             <span className="security-param-val">0.5 SOL</span>
@@ -857,12 +981,8 @@ export default function App() {
                                             <span className="security-param-val loss">-10.0%</span>
                                         </div>
                                         <div className="security-param">
-                                            <span className="security-param-lbl">Profit Target</span>
-                                            <span className="security-param-val profit">+25.0%</span>
-                                        </div>
-                                        <div className="security-param">
-                                            <span className="security-param-lbl">Wallet Isolation</span>
-                                            <span className="security-param-val accent">Active</span>
+                                            <span className="security-param-lbl">Withdrawal</span>
+                                            <span className="security-param-val">Whitelisted</span>
                                         </div>
                                     </div>
                                 </div>
@@ -879,34 +999,35 @@ export default function App() {
                         <Reveal>
                             <div className="section-header centered">
                                 <span className="eyebrow">WHY AURA</span>
-                                <h2>Not another trading dashboard.</h2>
+                                <h2>The moat is the pipeline, not the prompt.</h2>
                             </div>
                         </Reveal>
                         <div className="bento-grid">
                             <Reveal delay={0}>
                                 <div className="bento-card bento-wide bento-hero-card">
                                     <div className="bento-body">
-                                        <span className="bento-tag">AI-FIRST</span>
-                                        <h3>Trained on the best traders</h3>
+                                        <span className="bento-tag">DATA</span>
+                                        <h3>50M+ decoded transactions, not live API snapshots</h3>
                                         <p>
-                                            Our ML model learned from wallets with 77% win rates.
-                                            It doesn't guess — it recognizes patterns that humans miss.
+                                            Old Faithful gave Aura access to Solana's buried history.
+                                            We reconstructed Meteora DLMM activity event by event and
+                                            turned it into ML-ready training data.
                                         </p>
                                     </div>
                                     <div className="bento-metric">
-                                        <span className="metric-big"><Counter value={77} suffix="%" /></span>
-                                        <span className="metric-label">win rate from top wallets</span>
+                                        <span className="metric-big"><Counter value={50} suffix="M+" /></span>
+                                        <span className="metric-label">decoded DLMM transactions</span>
                                     </div>
                                 </div>
                             </Reveal>
                             <Reveal delay={0.1}>
                                 <div className="bento-card">
                                     <div className="bento-body">
-                                        <span className="bento-tag">MOBILE</span>
-                                        <h3>Made for your phone</h3>
+                                        <span className="bento-tag">MODEL</span>
+                                        <h3>Trained on real LP outcomes</h3>
                                         <p>
-                                            No desktop dashboards. No browser extensions.
-                                            Full trading control from your pocket.
+                                            The model is built on position lifecycles, fee behavior,
+                                            and bin movement. Not prompts. Not copy trading.
                                         </p>
                                     </div>
                                 </div>
@@ -914,11 +1035,11 @@ export default function App() {
                             <Reveal delay={0.15}>
                                 <div className="bento-card">
                                     <div className="bento-body">
-                                        <span className="bento-tag">TRANSPARENT</span>
-                                        <h3>See everything</h3>
+                                        <span className="bento-tag">EXECUTION</span>
+                                        <h3>Live engine with hard guardrails</h3>
                                         <p>
-                                            Every decision the AI makes is logged with reasoning.
-                                            You always know why a trade was entered or exited.
+                                            Aura wraps a real LP execution engine with sub-minute
+                                            scans, isolated agent wallets, and strict risk limits.
                                         </p>
                                     </div>
                                 </div>
@@ -926,17 +1047,16 @@ export default function App() {
                             <Reveal delay={0.1}>
                                 <div className="bento-card bento-wide">
                                     <div className="bento-body">
-                                        <span className="bento-tag">CONTROL</span>
-                                        <h3>Your rules, strictly enforced</h3>
+                                        <span className="bento-tag">MOBILE</span>
+                                        <h3>One phone surface from swap to delegation</h3>
                                         <p>
-                                            Set position sizes, stop losses, profit targets, and
-                                            spending limits. These aren't suggestions — they're
-                                            hard limits enforced on every single trade cycle.
+                                            Execute through Jupiter, automate rules, or delegate
+                                            Meteora timing from the same Android app using Solana MWA.
                                         </p>
                                     </div>
                                     <div className="bento-metric">
-                                        <span className="metric-big"><Counter value={100} suffix="%" /></span>
-                                        <span className="metric-label">your control</span>
+                                        <span className="metric-big"><Counter value={3} /></span>
+                                        <span className="metric-label">capital control modes</span>
                                     </div>
                                 </div>
                             </Reveal>
@@ -952,13 +1072,14 @@ export default function App() {
                         <Reveal>
                             <div className="cta-card">
                                 <div className="cta-glow" />
-                                <h2>Ready to let AI trade for you?</h2>
+                                <h2>See the execution layer before everyone else.</h2>
                                 <p>
-                                    Join the early access and be among the first to deploy
-                                    an AI trading agent on Solana.
+                                    Early access is open for the Android beta. If you want the
+                                    product that sits between raw Solana infra and passive vaults,
+                                    this is it.
                                 </p>
                                 <div className="cta-actions">
-                                    <WaitlistForm label="Request early access" className="btn-lg" />
+                                    <WaitlistForm label="Request access" className="btn-lg" />
                                 </div>
                             </div>
                         </Reveal>
@@ -974,11 +1095,12 @@ export default function App() {
                         <span>Aura</span>
                     </div>
                     <div className="footer-links">
+                        <a href="/pitch">Pitch</a>
                         <a href="/whitepaper">Whitepaper</a>
                         <a href="https://x.com/useaura" target="_blank" rel="noopener noreferrer">@useaura</a>
                         <a href="mailto:hello@useaura.wtf">hello@useaura.wtf</a>
                     </div>
-                    <span className="footer-note">AI-powered trading on Solana.</span>
+                    <span className="footer-note">Autonomous capital execution on Solana.</span>
                 </div>
             </footer>
 
