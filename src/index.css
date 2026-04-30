@@ -605,7 +605,7 @@ p {
 .hero {
     position: relative;
     padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 9vw, 128px);
-    overflow: hidden;
+    overflow-x: clip; /* clip horizontal carousel items without clipping the phone vertically */
     isolation: isolate;
 }
 
@@ -860,7 +860,11 @@ p {
     }
 
     .hero-phones-cluster {
-        height: 540px;
+        height: 480px;
+    }
+
+    .hero-visual-center {
+        margin-top: 48px;
     }
 }
 
