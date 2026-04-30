@@ -605,7 +605,7 @@ p {
 .hero {
     position: relative;
     padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 9vw, 128px);
-    overflow-x: clip; /* clip horizontal carousel items without clipping the phone vertically */
+    overflow: hidden;
     isolation: isolate;
 }
 
@@ -851,16 +851,32 @@ p {
         display: none;
     }
 
-    /* Keep the carousel visible on mobile but scaled down so it fits.
-       The horizontal motion still works — user just sees the scrolling phone screens. */
+    /* On mobile, shrink the phone via real width/height (not transform: scale)
+       so the layout box matches what's painted and the parent doesn't clip it. */
     .horizontal-screens-container,
     .horizontal-screen-item,
     .phone-empty-shell {
-        transform: translate(-50%, -50%) scale(0.78);
+        width: 250px;
+        height: 468px;
+    }
+
+    .phone-empty-shell {
+        border-radius: 30px;
+        box-shadow: inset 0 0 0 6px var(--elevated), inset 0 0 0 7px var(--line), 0 16px 40px oklch(from var(--ink) l c h / 0.10);
+    }
+
+    .phone-empty-shell::before {
+        top: 11px;
+        width: 76px;
+        height: 18px;
+    }
+
+    .horizontal-screen-item {
+        border-radius: 24px;
     }
 
     .hero-phones-cluster {
-        height: 480px;
+        height: 500px;
     }
 
     .hero-visual-center {
