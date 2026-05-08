@@ -498,9 +498,37 @@
     }
   }
 
+  /* === Mobile: stack slides + scroll-snap (phone-native deck) === */
   @media (max-width: 720px) {
+    html,
+    body {
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .deck {
+      width: 100%;
+      height: auto;
+    }
+
     .slide {
-      padding: 4vh 5vw 7vh;
+      position: relative !important;
+      inset: auto !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      height: auto;
+      padding: 7vh 6vw 9vh;
+      transition: none !important;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      gap: 24px;
     }
 
     header.nav,
@@ -509,6 +537,16 @@
       gap: 12px;
     }
 
+    h1 { font-size: clamp(40px, 11.5vw, 72px); line-height: 0.98; }
+    h2 { font-size: clamp(30px, 8.8vw, 54px); line-height: 1.02; }
+    .lead {
+      font-size: clamp(15px, 4.2vw, 19px);
+      margin-top: 16px;
+      max-width: 36ch;
+    }
+    .num-xl { font-size: clamp(64px, 22vw, 108px); }
+    .eyebrow { font-size: 10px; margin-bottom: 14px; }
+
     .consumer-grid,
     .tri-grid,
     .roadmap,
@@ -516,26 +554,176 @@
     .proof-grid,
     .founder-grid {
       grid-template-columns: 1fr;
+      margin-top: 26px;
+      gap: 20px;
     }
 
+    .line-grid { gap: 22px; }
+
+    .card .v,
+    .timeline-card .v,
+    .founder-card .v { font-size: 22px; }
+    .proof-card .v { font-size: 26px; }
+    .card .s,
+    .proof-card .s,
+    .timeline-card .s,
+    .founder-card .s { font-size: 14px; }
+    .proof-card { min-height: 0; }
+
+    /* Tables: stack into labelled rows so nothing overflows on phones */
+    .mini-table,
+    .comp,
+    .mini-table tbody,
+    .comp tbody,
+    .mini-table tr,
+    .comp tr,
+    .mini-table td,
+    .comp td {
+      display: block;
+      width: 100%;
+    }
+    .mini-table thead,
+    .comp thead { display: none; }
+    .mini-table tr,
+    .comp tr {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .comp tr.us {
+      background: rgba(46, 167, 255, 0.06);
+      border-radius: 10px;
+      padding: 14px 12px;
+    }
+    .mini-table td,
+    .comp td {
+      border: none;
+      padding: 3px 0;
+      font-size: 15px;
+    }
+    .mini-table td:first-child,
+    .comp td:first-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    /* Founder: portrait first, then name + stats */
+    .founder-grid {
+      display: flex !important;
+      flex-direction: column;
+      align-items: flex-start;
+    }
     .founder-grid > :last-child {
       grid-column: auto;
-      min-height: 280px;
+      min-height: 0;
+    }
+    .squircle {
+      width: min(56vw, 220px);
+      height: min(56vw, 220px);
+      border-radius: 50%;
+      margin: 0;
+      flex: 0 0 auto;
+    }
+    .founder-head { margin-top: 4px; }
+    .founder-head .name { font-size: 28px; }
+    .founder-stats {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .note-line { font-size: 14px; margin-top: 16px; }
+
+    /* On-screen controls: hide on mobile (scroll is the gesture) */
+    .progress,
+    .controls { display: none !important; }
+    .notes-panel { display: none !important; }
+  }
+
+  @media (max-width: 480px) {
+    .slide { padding: 6vh 5vw 8vh; gap: 18px; }
+    h1 { font-size: clamp(36px, 12.5vw, 60px); }
+    h2 { font-size: clamp(28px, 9.4vw, 46px); }
+    .lead { font-size: 15px; }
+    .num-xl { font-size: clamp(56px, 24vw, 92px); }
+    .founder-head .name { font-size: 26px; }
+    .squircle {
+      width: min(52vw, 200px);
+      height: min(52vw, 200px);
+    }
+  }
+
+  /* Print + ?print=1 mode: render every slide stacked, one per page */
+  body.print-mode,
+  body.print-mode .deck {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  body.print-mode .deck {
+    width: 100%;
+  }
+
+  body.print-mode .slide {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: 100vw;
+    height: 100vh;
+    page-break-after: always;
+    break-after: page;
+    transition: none !important;
+  }
+
+  body.print-mode .slide:last-of-type {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  body.print-mode .progress,
+  body.print-mode .controls,
+  body.print-mode .notes-panel {
+    display: none !important;
+  }
+
+  @media print {
+    @page {
+      size: 1280px 720px;
+      margin: 0;
     }
 
-    .controls {
-      right: 14px;
-      bottom: 12px;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    html, body, .deck {
+      overflow: visible !important;
+      height: auto !important;
+      background: var(--bg) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
 
+    .slide {
+      position: relative !important;
+      inset: auto !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      width: 1280px;
+      height: 720px;
+      page-break-after: always;
+      break-after: page;
+      transition: none !important;
+    }
+
+    .slide:last-of-type {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .progress,
+    .controls,
     .notes-panel {
-      left: 12px;
-      right: 12px;
-      bottom: 56px;
-      max-width: none;
+      display: none !important;
     }
   }
 </style>
@@ -873,6 +1061,11 @@
 
   const start = parseInt((location.hash || '#1').slice(1), 10) - 1;
   show(Number.isNaN(start) ? 0 : start);
+
+  // ?print=1 -> stack every slide for clean PDF export
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    document.body.classList.add('print-mode');
+  }
 </script>
 </body>
 </html>
