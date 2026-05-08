@@ -1,762 +1,878 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>Aura — Pitch Deck</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --lime: #c3ff00;
-            --blue: #0055ff;
-            --bg: #09090b;
-            --card: #131316;
-            --white: #ffffff;
-            --dim: #777;
-            --muted: #444;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            background: #000;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--white);
-            background: #000;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            color-adjust: exact !important;
-        }
-
-        /* ── Slide ── */
-        .slide {
-            width: 100%;
-            height: auto;
-            background: var(--bg);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 60px 80px;
-            page-break-after: always;
-            margin: 0 auto 2px;
-            aspect-ratio: 16 / 9;
-        }
-
-        .slide:last-child {
-            page-break-after: auto;
-        }
-
-        .slide.center {
-            align-items: center;
-            text-align: center;
-        }
-
-        /* ── Type ── */
-        .hero {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 800;
-            font-size: 52px;
-            line-height: 1.08;
-            letter-spacing: -1.5px;
-            color: var(--white);
-        }
-
-        h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 800;
-            font-size: 38px;
-            line-height: 1.12;
-            letter-spacing: -0.8px;
-            color: var(--white);
-            margin-bottom: 18px;
-        }
-
-        h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--white);
-            margin-bottom: 10px;
-        }
-
-        h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--white);
-            margin-bottom: 4px;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.55;
-            color: var(--dim);
-        }
-
-        .big {
-            font-size: 19px;
-        }
-
-        .small {
-            font-size: 14px;
-        }
-
-        .lime {
-            color: var(--lime);
-        }
-
-        .blue {
-            color: var(--blue);
-        }
-
-        .w {
-            color: var(--white);
-        }
-
-        .dim {
-            color: var(--dim);
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        strong {
-            font-weight: 600;
-        }
-
-        em {
-            font-style: italic;
-        }
-
-        /* ── Layout ── */
-        .row {
-            display: flex;
-            gap: 36px;
-            width: 100%;
-        }
-
-        .row>* {
-            flex: 1;
-        }
-
-        .gap-24 {
-            gap: 24px;
-        }
-
-        .gap-16 {
-            gap: 16px;
-        }
-
-        .mt-auto {
-            margin-top: auto;
-        }
-
-        /* ── Cards ── */
-        .card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 28px;
-        }
-
-        .card-lime {
-            border-left: 3px solid var(--lime);
-        }
-
-        .card-blue {
-            border-left: 3px solid var(--blue);
-        }
-
-        /* ── Steps ── */
-        .step-grid {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-        }
-
-        .step {
-            flex: 1;
-            background: var(--card);
-            border-radius: 12px;
-            padding: 24px;
-        }
-
-        .step-num {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 800;
-            font-size: 48px;
-            color: var(--muted);
-            line-height: 1;
-            margin-bottom: 12px;
-        }
-
-        .step h4 {
-            margin-bottom: 8px;
-        }
-
-        .step p {
-            font-size: 15px;
-        }
-
-        /* ── Video ── */
-        .video-wrap {
-            width: 100%;
-            max-height: 520px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid #1a1a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-wrap video {
-            width: 100%;
-            height: auto;
-            max-height: 520px;
-            object-fit: contain;
-            background: #000;
-        }
-
-
-
-        /* ── Proof images ── */
-        .proof-row {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: flex-end;
-            margin-top: 20px;
-        }
-
-        .proof-row img {
-            width: 280px;
-            border-radius: 10px;
-            border: 2px solid #1a1a1a;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .proof-row img:nth-child(2) {
-            width: 300px;
-            border-color: var(--lime);
-            transform: translateY(-10px);
-        }
-
-        /* ── Stat row ── */
-        .stat-row {
-            display: flex;
-            gap: 24px;
-            margin-top: 24px;
-        }
-
-        .stat {
-            flex: 1;
-            background: var(--card);
-            border-radius: 12px;
-            padding: 20px 24px;
-            border-top: 2px solid var(--muted);
-        }
-
-        .stat-val {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 800;
-            font-size: 32px;
-            color: var(--lime);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--dim);
-            margin-top: 6px;
-        }
-
-        /* ── Seal checks ── */
-        .check-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 16px;
-        }
-
-        .check-list li {
-            font-size: 17px;
-            color: var(--white);
-            padding: 10px 0;
-            border-bottom: 1px solid #1a1a1a;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .check-list li:last-child {
-            border-bottom: none;
-        }
-
-        .check-icon {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--lime);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .check-icon svg {
-            width: 12px;
-            height: 12px;
-        }
-
-        /* ── Revenue ── */
-        .rev-box {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 32px 40px;
-            margin-top: 24px;
-            border: 1px solid #1a1a1a;
-            max-width: 700px;
-        }
-
-        .rev-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .rev-row:last-child {
-            border-bottom: none;
-        }
-
-        /* ── Timeline ── */
-        .timeline {
-            display: flex;
-            gap: 16px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .quarter {
-            flex: 1;
-            background: var(--card);
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .quarter h4 {
-            font-size: 16px;
-            margin-bottom: 12px;
-        }
-
-        .quarter ul {
-            padding-left: 16px;
-            list-style: disc;
-        }
-
-        .quarter li {
-            font-size: 14px;
-            color: var(--dim);
-            margin-bottom: 4px;
-            line-height: 1.4;
-        }
-
-        .quarter.now {
-            border: 1px solid var(--lime);
-        }
-
-        /* ── Bottom tag ── */
-        .slide-tag {
-            position: absolute;
-            bottom: 24px;
-            left: 80px;
-            font-size: 11px;
-            color: var(--muted);
-            font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ── Print ── */
-        @page {
-            size: 16in 9in;
-            margin: 0;
-        }
-
-        @media print {
-
-            html,
-            body {
-                background: #000 !important;
-                margin: 0;
-                padding: 0;
-            }
-
-            .slide {
-                width: 16in;
-                height: 9in;
-                aspect-ratio: unset;
-                margin: 0;
-                padding: 60px 80px;
-                box-shadow: none;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-        }
-
-        @media screen {
-            body {
-                padding: 20px 0;
-            }
-
-            .slide {
-                box-shadow: 0 4px 60px rgba(0, 0, 0, 0.7);
-                margin-bottom: 28px;
-                border-radius: 6px;
-            }
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aura | Mobile LP automation</title>
+<meta name="description" content="Aura. Mobile LP automation for Meteora. SuperteamNG Demo Day, May 2026." />
+<link rel="icon" href="/sage-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090c;
+    --fg: #f4f8fc;
+    --muted: #90a0b2;
+    --dim: #556273;
+    --line: #18202b;
+    --line-2: #223042;
+    --card: rgba(14, 20, 29, 0.88);
+    --accent: #2ea7ff;
+    --accent-soft: #69d5ff;
+    --accent-deep: #0f67ff;
+    --bad: #ff6b6b;
+    --good: #79f2a5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html,
+  body {
+    height: 100%;
+    background:
+      radial-gradient(circle at top left, rgba(46, 167, 255, 0.16), transparent 34%),
+      radial-gradient(circle at bottom right, rgba(15, 103, 255, 0.13), transparent 30%),
+      var(--bg);
+    color: var(--fg);
+    font-family: 'Inter Tight', sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 5vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  header.nav,
+  footer.foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    gap: 20px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand img {
+    width: 18px;
+    height: 18px;
+    display: block;
+    border-radius: 4px;
+  }
+
+  .brand .name {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  .brand .sep {
+    color: var(--dim);
+    margin: 0 4px;
+  }
+
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: clamp(50px, 9vw, 148px);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.94;
+  }
+
+  h2 {
+    font-size: clamp(38px, 6.2vw, 104px);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+
+  .lead {
+    font-size: clamp(18px, 2vw, 28px);
+    color: var(--muted);
+    max-width: 42ch;
+    line-height: 1.38;
+    margin-top: 2vh;
+  }
+
+  .accent { color: var(--accent-soft); }
+
+  .num-xl {
+    font-size: clamp(112px, 20vw, 330px);
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 0.84;
+  }
+
+  .num-xl .unit {
+    font-size: 0.26em;
+    color: var(--muted);
+    margin-left: 0.12em;
+    vertical-align: super;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 11px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .mini-table,
+  .comp {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 3.4vh;
+  }
+
+  .mini-table th,
+  .mini-table td,
+  .comp th,
+  .comp td {
+    text-align: left;
+    padding: 16px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: clamp(14px, 1.08vw, 18px);
+  }
+
+  .mini-table th,
+  .comp th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line-2);
+    font-weight: 500;
+  }
+
+  .consumer-grid,
+  .proof-grid,
+  .tri-grid,
+  .roadmap,
+  .gtm-grid,
+  .founder-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 3.8vh;
+  }
+
+  .consumer-grid,
+  .tri-grid,
+  .roadmap,
+  .gtm-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* line-style item: differentiation by short top rule, not boxes */
+  .line-grid {
+    gap: 32px;
+  }
+
+  .line-grid .card,
+  .line-grid .timeline-card,
+  .line-grid .proof-card {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--line-2);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 18px 0 0 0;
+    position: relative;
+  }
+
+  .line-grid .card::before,
+  .line-grid .timeline-card::before,
+  .line-grid .proof-card::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 36px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .line-grid .card .k,
+  .line-grid .timeline-card .k,
+  .line-grid .proof-card .k {
+    margin-bottom: 12px;
+  }
+
+  .line-grid .card .s,
+  .line-grid .timeline-card .s,
+  .line-grid .proof-card .s {
+    margin-top: 12px;
+  }
+
+  .proof-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .founder-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: stretch;
+    gap: 26px;
+  }
+
+  .card,
+  .proof-card,
+  .timeline-card,
+  .founder-card,
+  .portrait-card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    background: var(--card);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .card .k,
+  .proof-card .k,
+  .timeline-card .k,
+  .founder-card .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+
+  .card .v,
+  .timeline-card .v,
+  .founder-card .v {
+    font-size: clamp(22px, 2.2vw, 32px);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  .card .s,
+  .proof-card .s,
+  .timeline-card .s,
+  .founder-card .s {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.45;
+    margin-top: 10px;
+  }
+
+  .proof-card {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .proof-card .v {
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 760;
+    letter-spacing: -0.03em;
+  }
+
+  .comp td.bad { color: var(--bad); }
+  .comp td.ok { color: var(--good); font-weight: 600; }
+
+  .comp tr.us td {
+    background: rgba(46, 167, 255, 0.06);
+  }
+
+  .portrait-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .founder-grid {
+    grid-template-columns: 1.35fr 0.65fr !important;
+    align-items: start;
+  }
+
+  .squircle {
+    width: 220px;
+    height: 220px;
+    border-radius: 56px;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--line-2);
+    margin-left: auto;
+  }
+
+  .squircle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .founder-head {
+    margin-top: 24px;
+  }
+
+  .founder-head .name {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .founder-head .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-top: 10px;
+  }
+
+  .founder-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 28px;
+  }
+
+  .founder-stats .stat {
+    border-top: 1px solid var(--line-2);
+    padding-top: 14px;
+  }
+
+  .founder-stats .stat .v {
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .founder-stats .stat .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 8px;
+  }
+
+  .founder-stats .stat .s {
+    color: var(--dim);
+    font-size: 13px;
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+
+  .note-line {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 48ch;
+  }
+
+  .progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #10151c;
+    z-index: 50;
+  }
+
+  .progress > i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-deep), var(--accent-soft));
+    transition: width 0.3s ease;
+  }
+
+  .controls {
+    position: fixed;
+    bottom: 18px;
+    right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 60;
+    display: flex;
+    gap: 14px;
+  }
+
+  .controls span {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .controls span:hover { color: var(--fg); }
+
+  .notes-panel {
+    position: fixed;
+    left: 24px;
+    bottom: 42px;
+    max-width: 46vw;
+    background: rgba(7, 9, 12, 0.96);
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    padding: 18px 20px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #d7e2ef;
+    z-index: 60;
+    display: none;
+  }
+
+  .notes-panel.show { display: block; }
+
+  .notes-panel .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-soft);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 1100px) {
+    .consumer-grid,
+    .tri-grid,
+    .roadmap,
+    .gtm-grid,
+    .proof-grid,
+    .founder-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .founder-grid > :last-child {
+      grid-column: span 2;
+      min-height: 360px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .slide {
+      padding: 4vh 5vw 7vh;
+    }
+
+    header.nav,
+    footer.foot {
+      font-size: 10px;
+      gap: 12px;
+    }
+
+    .consumer-grid,
+    .tri-grid,
+    .roadmap,
+    .gtm-grid,
+    .proof-grid,
+    .founder-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .founder-grid > :last-child {
+      grid-column: auto;
+      min-height: 280px;
+    }
+
+    .controls {
+      right: 14px;
+      bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .notes-panel {
+      left: 12px;
+      right: 12px;
+      bottom: 56px;
+      max-width: none;
+    }
+  }
+</style>
 </head>
-
 <body>
+<div class="deck" id="deck">
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 1 — HOOK
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide center">
-        <p class="small muted" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px;">Solana
-            Mobile &middot; MONOLITH 2026</p>
-        <div class="hero" style="max-width: 960px;">
-            $2K / month.<br>
-            77% win rate.<br>
-            <span class="lime">Zero employees.</span>
+<section class="slide" data-notes="Open with the exact story. I have a friend. He runs a bot on Meteora DLMM. One position I watched went from 2.45 SOL to 3.99 SOL overnight. I asked how. He basically told me: 100 percent chance i would not share it. The rich do not share. So I built Aura.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>01</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Legend -> product</div>
+    <h1>Aura.</h1>
+    <h1 style="color: var(--muted);">Liquidity, automated.</h1>
+    <p class="lead">A non-custodial mobile app for Meteora LP automation, trained on Solana history.</p>
+  </div>
+  <footer class="foot"><span>Mobile LP automation</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Problem slide. Say fragmented liquidity exactly. Thousands of pools, bins moving every block, fees concentrated in the right position, and humans cannot babysit this all day.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>02</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Problem</div>
+    <h2>Fragmented liquidity.<br /><span style="color: var(--muted);">Humans cannot keep up.</span></h2>
+    <p class="lead">On Meteora, the difference between earning and leaking yield is constant positioning, monitoring, and rebalance discipline.</p>
+  </div>
+  <footer class="foot"><span>Winner-aligned framing from Colosseum data</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Solution slide. Lead with product, not model. Aura is a non-custodial LP automation app for Meteora. The user runs it from a phone. Each bot gets a signer. The wallet stays theirs.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>03</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Solution</div>
+    <h2>LP automation.<br /><span class="accent">From your phone.</span></h2>
+    <div class="consumer-grid line-grid">
+      <div class="card">
+        <div class="k">Control</div>
+        <div class="v">Non-custodial</div>
+        <div class="s">Users keep wallet ownership while Aura handles the operating layer.</div>
+      </div>
+      <div class="card">
+        <div class="k">Execution</div>
+        <div class="v">Per-bot signer</div>
+        <div class="s">Each strategy gets a dedicated bot wallet and live control surface.</div>
+      </div>
+      <div class="card">
+        <div class="k">Surface</div>
+        <div class="v">Mobile first</div>
+        <div class="s">This is a product, not a terminal script and not a Telegram-only wrapper.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><span>Android app + bot-wallet architecture</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Consumer slide. Make it clear who buys first. Not all DeFi. Not institutions. The wedge is active Meteora-native operators, copy-LP curious users, and mobile-native Solana traders.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>04</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Consumer</div>
+    <h2>Start with the people<br />already closest to pain.</h2>
+    <div class="consumer-grid line-grid">
+      <div class="card">
+        <div class="k">User one</div>
+        <div class="v">Manual LPs</div>
+        <div class="s">They already know Meteora works. They do not want to babysit bins all day.</div>
+      </div>
+      <div class="card">
+        <div class="k">User two</div>
+        <div class="v">Copy-LP seekers</div>
+        <div class="s">They want exposure to winning liquidity behavior without becoming full-time operators.</div>
+      </div>
+      <div class="card">
+        <div class="k">User three</div>
+        <div class="v">Mobile-native Solana traders</div>
+        <div class="s">They want yield management from the phone they already use to monitor the market.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><span>Beachhead before breadth</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Market slide. Keep this crisp. Solana already has the flow, Meteora already has the fees, and the market is active enough to support a real product category now.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>05</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Market opportunity</div>
+    <div class="num-xl">$15B<span class="unit">/ day</span></div>
+    <table class="mini-table">
+      <thead>
+        <tr><th>Signal</th><th>Current</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Solana DEX flow, 24h</td><td>$15.26B / 33.21M tx</td><td>GeckoTerminal</td></tr>
+        <tr><td>Meteora TVL</td><td>$334.07M</td><td>DefiLlama</td></tr>
+        <tr><td>Meteora fees, annualized</td><td>$148.85M</td><td>DefiLlama</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="foot"><span>The pipe is already built</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Business advantage slide. This is where you earn credibility. The moat is not generic AI. It is the archive, the decoded DLMM history, and the mobile product on top of it.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>06</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Business advantage</div>
+    <h2>The moat is not AI.<br /><span class="accent">The moat is history.</span></h2>
+    <div class="proof-grid line-grid">
+      <div class="proof-card">
+        <div class="k">Archive</div>
+        <div class="v">244 TB</div>
+        <div class="s">Old Faithful epochs processed to reconstruct Meteora DLMM history.</div>
+      </div>
+      <div class="proof-card">
+        <div class="k">Training data</div>
+        <div class="v">50M+</div>
+        <div class="s">Decoded DLMM transactions, not just live API snapshots and wrappers.</div>
+      </div>
+      <div class="proof-card">
+        <div class="k">Benchmark set</div>
+        <div class="v">12,635</div>
+        <div class="s">Real positions benchmarked instead of synthetic backtests.</div>
+      </div>
+      <div class="proof-card">
+        <div class="k">Signal</div>
+        <div class="v">2.45 -> 3.99</div>
+        <div class="s">The kind of real-world LP outcome that made this category impossible to ignore.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><span>Data moat + product moat</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Competitive advantage slide. Be mature here. MetEngine proved copy-LP demand. Condor proved the mobile wedge. Aura is the intersection of mobile control, non-custodial execution, and archival-data-trained logic.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>07</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Competitive advantage</div>
+    <h2>The gap is clear.</h2>
+    <table class="comp">
+      <thead>
+        <tr><th>Project</th><th>What they proved</th><th>Prize</th><th>Open gap</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>MetEngine</td><td>Copy-LP demand</td><td>2nd place, DeFi</td><td class="bad">No real model moat</td></tr>
+        <tr><td>Condor</td><td>Mobile LP UX</td><td>HM, DeFi</td><td class="bad">No archival edge</td></tr>
+        <tr><td>Ktulu</td><td>CL vault logic</td><td>HM, DeFi</td><td class="bad">No mobile wedge</td></tr>
+        <tr><td>Cleopetra</td><td>Telegram LP automation</td><td>HM, DeFi</td><td class="bad">No data moat</td></tr>
+        <tr class="us"><td>Aura</td><td>Mobile + non-custodial + history</td><td class="ok">Now</td><td class="ok">Combines the missing pieces</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="foot"><span>Validated category, unfinished product wedge</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="GTM slide. Keep it practical. Beachhead: active Meteora users already doing this manually. Channels: private Telegram and Discord loops, SuperteamNG intros, operator referrals. Business model: performance fee on profitable outcomes.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>08</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">GTM + business model</div>
+    <h2>Start narrow.<br /><span style="color: var(--muted);">Win the right room first.</span></h2>
+    <div class="gtm-grid line-grid">
+      <div class="card">
+        <div class="k">Beachhead</div>
+        <div class="v">Meteora-native operators</div>
+        <div class="s">Closed beta with users already LPing manually and already feeling this pain.</div>
+      </div>
+      <div class="card">
+        <div class="k">Distribution</div>
+        <div class="v">Discord, Telegram, Superteam</div>
+        <div class="s">Community-first loops, operator referrals, and design partners inside the ecosystem.</div>
+      </div>
+      <div class="card">
+        <div class="k">Revenue</div>
+        <div class="v">Performance fee</div>
+        <div class="s">Charge on profitable outcomes, not on empty dashboards or generic subscriptions.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><span>The best apps on Solana make holders revenue</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="Roadmap slide. Do not invent fantasy milestones. Keep it believable. Next 90 days: closed beta and operator proof. Next 6 months: retained users and repeatable performance surface. Then widen to more automation modes on Solana.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>09</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Roadmap</div>
+    <h2>Win the wedge.<br /><span style="color: var(--muted);">Then expand the surface.</span></h2>
+    <div class="roadmap line-grid">
+      <div class="timeline-card">
+        <div class="k">0 - 90 days</div>
+        <div class="v">Closed beta</div>
+        <div class="s">Ship core Meteora automation, onboard design partners, and pressure-test live behavior.</div>
+      </div>
+      <div class="timeline-card">
+        <div class="k">3 - 6 months</div>
+        <div class="v">Retention + operator proof</div>
+        <div class="s">Repeat usage, performance dashboards, strategy templates, and stronger referral loops.</div>
+      </div>
+      <div class="timeline-card">
+        <div class="k">6 - 12 months</div>
+        <div class="v">Broader capital execution</div>
+        <div class="s">Widen beyond one automation surface into a larger Solana execution product.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><span>Beachhead first, category second</span><span>useaura.wtf</span></footer>
+</section>
+
+<section class="slide" data-notes="This is your why-me slide. Own it. Yes, I am solo today. But this wedge is mobile-first liquidity automation, and I am one of the few people in Solana with a proven record shipping mobile blockchain infra, education, and product integrations. I built the first Anchor client for Flutter, ranked top 2 percent on Superteam Earn, reached 5,000 plus developers, and shipped across the Solana mobile stack.">
+  <header class="nav">
+    <span class="brand"><img src="/sage-logo.png" alt="" /><span class="name">Aura</span><span class="sep">/</span><span>10</span></span>
+    <span>SuperteamNG / Demo Day / 2026</span>
+  </header>
+  <div class="body">
+    <div class="eyebrow">Team</div>
+    <h2>Lean today.<br /><span class="accent">Right person for the wedge.</span></h2>
+    <div class="founder-grid">
+      <div>
+        <div class="founder-head">
+          <div class="name">Dominion Nwakanma</div>
+          <div class="role">Founder / mobile-first Solana builder</div>
         </div>
-        <p class="big" style="margin-top: 28px; color: #999; max-width: 640px;">
-            This is one Solana wallet running an LP bot on Meteora.<br>
-            <strong class="w">Your phone can do this now.</strong>
-        </p>
-        <span class="slide-tag">useaura.wtf</span>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 2 — THE GAP
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide">
-        <h2>You're not slow.<br><span class="blue">You're locked out.</span></h2>
-        <div class="row" style="margin-top: 8px;">
-            <div>
-                <p class="big w">Automated trading has always existed. It's just never been yours.</p>
-                <p style="margin-top: 14px;">Hedge funds have quant teams. Prop desks run bots 24/7. On Meteora, a
-                    handful of wallets run automated LP scanners — entering positions every 30 seconds, exiting on
-                    target. One solo dev's bot hit a 77% win rate across 12,635 positions. Investors tried to buy his
-                    code. He said no.</p>
-                <p style="margin-top: 14px;">Every time a closed system goes public, a market explodes. Uber did it to
-                    taxis. Robinhood did it to stock trading. Pump.fun did it to token launches. The pattern is always
-                    the same: <strong class="w">take what the insiders gatekept and put it in everyone's
-                        pocket.</strong></p>
-                <p
-                    style="margin-top: 18px; font-weight: 600; color: var(--lime); border-left: 2px solid var(--lime); padding-left: 14px;">
-                    Automated LP trading on Solana is that closed system right now.
-                </p>
-            </div>
-            <div style="flex: 0.7; display: flex; flex-direction: column; justify-content: center; gap: 16px;">
-                <div class="card card-lime" style="padding: 20px;">
-                    <p class="small lime" style="text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">
-                        Automated wallet</p>
-                    <p class="w" style="margin-top: 8px;">Scans 200+ pools every 30s. Enters on signal. Exits on target.
-                        Runs 24/7.</p>
-                </div>
-                <div class="card" style="padding: 20px; border-left: 3px solid var(--muted);">
-                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">
-                        Manual trader</p>
-                    <p style="margin-top: 8px; color: #555;">Opens app. Reads chart. Thinks about it. Pool cools off.
-                        Repeat.</p>
-                </div>
-            </div>
+        <div class="founder-stats">
+          <div class="stat">
+            <div class="k">Credibility</div>
+            <div class="v">#29 / 1,088</div>
+            <div class="s">Top 2% on Superteam Earn. ~$19K earned.</div>
+          </div>
+          <div class="stat">
+            <div class="k">Mobile infra</div>
+            <div class="v">First Anchor client for Flutter</div>
+            <div class="s">Featured on Colosseum Codex.</div>
+          </div>
+          <div class="stat">
+            <div class="k">Distribution</div>
+            <div class="v">~6K developers reached</div>
+            <div class="s">Workshops, tutorials, ecosystem education.</div>
+          </div>
         </div>
-        <span class="slide-tag">the problem</span>
+        <p class="note-line">Contributions across Blueshift, Jupiter, Solana mobile components, WalletConnect, and Espresso Cash &mdash; founder-product fit, not just biography.</p>
+      </div>
+      <div class="squircle">
+        <img src="/pitch/pfp-3-comp.jpg" alt="Dominion Nwakanma" />
+      </div>
     </div>
+  </div>
+  <footer class="foot"><span>@heisjoel0x / joel@useaura.wtf / find me after</span><span>useaura.wtf</span></footer>
+</section>
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 3 — AURA (VALUE PROP)
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide center">
-        <p class="small dim" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Introducing
-        </p>
-        <div class="hero" style="max-width: 900px; font-size: 54px;">
-            Talk to your phone.<br>
-            <span class="lime">It trades for you.</span>
-        </div>
-        <p class="big" style="margin-top: 28px; color: #888; max-width: 680px;">
-            Aura is an autonomous LP trading agent for Solana.<br>
-            Describe a strategy in English. An ML-powered bot executes it from your pocket.
-        </p>
-        <span class="slide-tag">aura</span>
-    </div>
+</div>
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 4 — HOW IT WORKS (3 STEPS)
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide">
-        <h2>Three taps. Not three weeks.</h2>
-        <div class="step-grid" style="margin-top: 12px;">
-            <div class="step">
-                <div class="step-num muted">1</div>
-                <h4 class="w">Connect</h4>
-                <p>Sign in with your Solana wallet via MWA. Phantom, Solflare — no email, no password. Your wallet is
-                    your identity.</p>
-            </div>
-            <div class="step" style="border-top: 2px solid var(--blue);">
-                <div class="step-num" style="color: var(--blue);">2</div>
-                <h4 class="lime">Configure</h4>
-                <p>Choose a risk profile (conservative, balanced, aggressive) or speak your strategy out loud — Aura
-                    transcribes it and Claude converts it to exact parameters. An XGBoost V3 model trained on a dataset
-                    of Meteora positions scores every pool in real time using 12 features: volume, fees, liquidity, APR,
-                    momentum.</p>
-            </div>
-            <div class="step" style="border-top: 2px solid var(--lime);">
-                <div class="step-num" style="color: var(--lime);">3</div>
-                <h4 class="w">Deploy</h4>
-                <p>Your bot goes live — scanning 200+ pools every 30 seconds. The ML model filters entries by confidence
-                    score. Positions are opened, tracked, and closed automatically. Watch it all from your phone.</p>
-            </div>
-        </div>
-        <p
-            style="margin-top: 24px; font-size: 14px; color: var(--muted); border-left: 2px solid var(--lime); padding-left: 14px;">
-            <em class="dim">Test any strategy in simulation mode first. Real Meteora data. No real money at risk.</em>
-        </p>
-        <span class="slide-tag">how it works</span>
-    </div>
+<div class="progress"><i id="bar"></i></div>
+<div class="controls">
+  <span id="prev">< prev</span>
+  <span id="next">next ></span>
+  <span id="toggleNotes">notes (n)</span>
+  <span id="counter">01 / 10</span>
+</div>
+<aside class="notes-panel" id="notes">
+  <div class="label">Speaker note</div>
+  <div id="notesText"></div>
+</aside>
 
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let index = 0;
+  let notesOn = false;
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 5 — SEAL (MOAT / BOUNTY ANSWER)
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide">
-        <p class="small lime" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;">Agentic Wallet
-            Infrastructure</p>
-        <h2>Your bot has a leash.<br><span class="blue">The blockchain holds it.</span></h2>
-        <div class="row" style="margin-top: 8px;">
-            <div>
-                <p>Every trade flows through <strong class="w">Seal</strong> — a smart wallet infrastructure program we
-                    built on
-                    Solana. Pure Pinocchio.</p>
-                <p style="margin-top: 12px;">The agent gets scoped session keys enforced on-chain:</p>
-                <ul class="check-list">
-                    <li>
-                        <span class="check-icon"><svg viewBox="0 0 12 12">
-                                <polyline points="2,6 5,9 10,3" stroke="#09090b" stroke-width="2" fill="none" />
-                            </svg></span>
-                        <span><strong>Program allowlists</strong> <span class="dim">— only Meteora DLMM, nothing
-                                else</span></span>
-                    </li>
-                    <li>
-                        <span class="check-icon"><svg viewBox="0 0 12 12">
-                                <polyline points="2,6 5,9 10,3" stroke="#09090b" stroke-width="2" fill="none" />
-                            </svg></span>
-                        <span><strong>Spending caps</strong> <span class="dim">— per-transaction and daily
-                                limits</span></span>
-                    </li>
-                    <li>
-                        <span class="check-icon"><svg viewBox="0 0 12 12">
-                                <polyline points="2,6 5,9 10,3" stroke="#09090b" stroke-width="2" fill="none" />
-                            </svg></span>
-                        <span><strong>Auto-expiring sessions</strong> <span class="dim">— time-bounded, revocable
-                                instantly</span></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="card card-blue" style="display: flex; flex-direction: column; justify-content: center;">
-                <p class="big w" style="font-weight: 600;">"If our server gets compromised, the attacker hits a spending
-                    cap.</p>
-                <p class="big lime" style="margin-top: 8px; font-weight: 700;">Not your savings."</p>
-                <p style="margin-top: 20px; color: var(--muted); font-size: 14px;">Open source. Mainnet deployed.<br>No
-                    admin key. No server custody.</p>
-                <p style="margin-top: 12px;"><strong class="blue">useaura.wtf</strong></p>
-            </div>
-        </div>
-        <span class="slide-tag">what makes us different</span>
-    </div>
+  const bar = document.getElementById('bar');
+  const counter = document.getElementById('counter');
+  const notesPanel = document.getElementById('notes');
+  const notesText = document.getElementById('notesText');
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 7 — TRACTION + SOCIAL PROOF
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide">
-        <h2>The market already told us<br><span class="lime">this should exist.</span></h2>
-        <div class="row" style="margin-top: 8px;">
-            <div style="flex: 1.1;">
-                <p class="big w">We didn't guess the demand. We found it.</p>
-                <p style="margin-top: 14px;">Mr Banks asked who's building AI that autonomously trades and places bets —
-                    pulling in $1K+ daily on autopilot. Vibhu (mid tier manager @solana) saw a YC-backed autonomous
-                    wealth product and said: <em class="lime">"This is not on Solana but should be."</em> And the bot
-                    devs who already have this? <em class="w">"No sane person will share it."</em></p>
-                <p style="margin-top: 14px;">Aura is the answer to all three. An autonomous LP agent that runs from your
-                    phone — built on Solana, open to everyone.</p>
-                <div class="stat-row" style="margin-top: 16px;">
-                    <div class="stat" style="border-color: var(--lime);">
-                        <div class="stat-val">Mainnet</div>
-                        <div class="stat-label">Seal wallet deployed</div>
-                    </div>
-                    <div class="stat" style="border-color: var(--blue);">
-                        <div class="stat-val">XGBoost V3</div>
-                        <div class="stat-label">ML model &middot; 0.94 AUC &middot; &lt;1ms</div>
-                    </div>
-                    <div class="stat" style="border-color: var(--lime);">
-                        <div class="stat-val">Full App</div>
-                        <div class="stat-label">Auth, voice AI, bots, live tracking</div>
-                    </div>
-                </div>
-            </div>
-            <div style="flex: 0.55;">
-                <div class="proof-row" style="flex-direction: column; align-items: center; margin-top: 0; gap: 12px;">
-                    <img src="proofs/vibhu.png" alt="Vibhu: This is not on Solana but should be"
-                        style="width: 100%; border-radius: 10px; border: 2px solid var(--lime); box-shadow: 0 12px 40px rgba(0,0,0,0.6);">
-                    <img src="proofs/mr-banks.png" alt="Mr Banks: Who is building AI that autonomously trades"
-                        style="width: 100%; border-radius: 10px; border: 2px solid #1a1a1a; box-shadow: 0 12px 40px rgba(0,0,0,0.6);">
-                </div>
-            </div>
-        </div>
-        <span class="slide-tag">market signal</span>
-    </div>
+  function show(nextIndex) {
+    index = Math.max(0, Math.min(total - 1, nextIndex));
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    bar.style.width = (((index + 1) / total) * 100) + '%';
+    counter.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    notesText.textContent = slides[index].dataset.notes || '';
+    if (history.replaceState) history.replaceState(null, '', '#' + (index + 1));
+  }
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 8 — SUSTAINABILITY / REVENUE
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide center">
-        <h2>Bot doesn't profit?<br><span class="lime">You don't pay.</span></h2>
-        <div class="rev-box" style="text-align: left;">
-            <div class="rev-row">
-                <div>
-                    <p class="w" style="font-weight: 600;">Performance fee</p>
-                    <p class="small dim">10–15% of AI-generated profits only</p>
-                </div>
-                <p class="lime" style="font-weight: 700; font-size: 20px;">Core</p>
-            </div>
-            <div class="rev-row">
-                <div>
-                    <p class="w" style="font-weight: 600;">Pro automation tier</p>
-                    <p class="small dim">Unlimited strategies, premium ML access</p>
-                </div>
-                <p class="blue" style="font-weight: 700; font-size: 20px;">$9.99/mo</p>
-            </div>
-            <div class="rev-row">
-                <div>
-                    <p class="w" style="font-weight: 600;">Execution fee</p>
-                    <p class="small dim">0.1–0.3% integrator fee on Jupiter swaps</p>
-                </div>
-                <p class="dim" style="font-weight: 700; font-size: 20px;">Volume</p>
-            </div>
-        </div>
-        <p style="margin-top: 20px; font-size: 14px; color: var(--muted);">Break-even at ~50 active users on performance
-            tier. Non-custodial = no custody = reduced regulatory burden.</p>
-        <span class="slide-tag">sustainability</span>
-    </div>
+  document.addEventListener('keydown', (event) => {
+    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+      event.preventDefault();
+      show(index + 1);
+    } else if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+      event.preventDefault();
+      show(index - 1);
+    } else if (event.key === 'Home') {
+      show(0);
+    } else if (event.key === 'End') {
+      show(total - 1);
+    } else if (event.key === 'n' || event.key === 'N') {
+      notesOn = !notesOn;
+      notesPanel.classList.toggle('show', notesOn);
+    } else if (event.key === 'f' || event.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
 
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 9 — TEAM
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide">
-        <p class="small lime" style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px;">Solo-built in
-            five weeks</p>
-        <h2 style="font-size: 40px; margin-bottom: 4px;">Dominion Nwakanma <span class="dim"
-                style="font-size: 22px; font-weight: 500;">— Miester</span></h2>
-        <p class="small dim" style="margin-bottom: 14px;">#29 / 1,088 developers on Superteam Earn &middot; Top 2%
-            &middot; ~$15K earned</p>
-        <div class="row gap-24">
-            <!-- Left col: proof cards -->
-            <div style="display: flex; flex-direction: column; gap: 12px; flex: 1.1;">
-                <div class="card card-lime" style="padding: 18px 22px;">
-                    <p class="small lime"
-                        style="text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 6px;">
-                        Why this problem, why him</p>
-                    <p class="w" style="font-size: 15px; line-height: 1.5;">Built <strong>coral_xyz</strong> — the
-                        first Anchor client library for Flutter/Dart. Featured on Colosseum Codex. When no path existed
-                        for Flutter developers to interact with Solana programs, he created it from scratch.</p>
-                </div>
-                <div class="card" style="padding: 18px 22px; border-left: 3px solid var(--blue);">
-                    <p class="small"
-                        style="color: var(--blue); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 6px;">
-                        3 published apps on the dApp Store</p>
-                    <p style="font-size: 14px; color: #888;">Since the last Solana Mobile hackathon, he has published
-                        three apps on the Solana dApp Store: a Blueshift mobile course app, a Sign In With Solana
-                        reference app, and Aura itself. </br></br>
+  document.getElementById('next').onclick = () => show(index + 1);
+  document.getElementById('prev').onclick = () => show(index - 1);
+  document.getElementById('toggleNotes').onclick = () => {
+    notesOn = !notesOn;
+    notesPanel.classList.toggle('show', notesOn);
+  };
 
-                        Worked with Blueshift to curate a web3 mobile developers course for solana mobile developers.
-                    </p>
-                </div>
-                <div class="card" style="padding: 18px 22px;">
-                    <p class="small muted"
-                        style="text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 6px;">
-                        5,000+ developers educated</p>
-                    <p style="font-size: 14px; color: #888;">Ran a 3-part Flutter &times; Solana workshop series on a
-                        Superteam grant. Spoke to 800 developers at FlutterBytes '25. Published 15+ technical tutorials
-                        on Medium. </br></br>All and more for Solana mobile 🫶.
-                    </p>
-                </div>
-            </div>
-            <!-- Right col: stat tiles -->
-            <div style="flex: 0.9; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
-                <div class="card" style="padding: 14px 18px;">
-                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
-                        Stack shipped</p>
-                    <p class="w" style="font-weight: 600; font-size: 14px;">Dart &middot; TypeScript &middot; Rust
-                        &middot; Python</p>
-                </div>
-                <div class="card" style="padding: 14px 18px;">
-                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
-                        Systems built solo</p>
-                    <p class="w" style="font-weight: 600; font-size: 14px;">Mobile &middot; Backend &middot; On-chain
-                        &middot; ML &middot; Infra</p>
-                </div>
-                <div class="card" style="padding: 14px 18px;">
-                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
-                        OSS first-mover</p>
-                    <p class="w" style="font-weight: 600; font-size: 14px;">Anchor/Dart &middot; Jupiter/Dart &middot;
-                        Walrus/Dart &middot; Seal (Pinocchio)</p>
-                </div>
-                <div class="card" style="padding: 14px 18px;">
-                    <p class="small muted" style="text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
-                        Community</p>
-                    <p class="w" style="font-weight: 600; font-size: 14px;">Solana AllStars Ambassador &middot; GDSC
-                        Mobile Lead</p>
-                </div>
-            </div>
-        </div>
-        <span class="slide-tag">team</span>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════
-       SLIDE 10 — CTA / CLOSER
-       ═══════════════════════════════════════════════════════ -->
-    <div class="slide center">
-        <p class="dim big" style="max-width: 600px; margin-bottom: 32px;">
-            The best traders never stopped automating.<br>
-            Now you don't have to start from scratch.
-        </p>
-        <div class="hero lime" style="font-size: 56px;">useaura.wtf</div>
-        <p style="margin-top: 16px; font-size: 17px;">
-            Wallet infra: <strong class="blue">useaura.wtf</strong>
-        </p>
-        <p style="margin-top: 6px; font-size: 15px; color: var(--muted);">
-            Open source: github.com/immadominion/aura
-        </p>
-
-
-    </div>
-
+  const start = parseInt((location.hash || '#1').slice(1), 10) - 1;
+  show(Number.isNaN(start) ? 0 : start);
+</script>
 </body>
-
 </html>
